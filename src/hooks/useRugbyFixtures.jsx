@@ -27,7 +27,11 @@ const useRugbyFixtures = () => {
           return groupedData;
         };
 
+        // console.log(data.data);
+
         const groupedData = groupDataByDate(data.data);
+
+        // console.log(groupedData);
 
         const groupDataByLeague = (data) => {
           const groupedData = {};
@@ -52,6 +56,39 @@ const useRugbyFixtures = () => {
         };
 
         const fixtures = groupDataByLeague(groupedData);
+
+        // console.log(fixtures);
+
+        // const groupDataByRound = (data) => {
+        //   const groupedData = {};
+
+        //   for (const [key, value] of Object.entries(data)) {
+        //     if (!groupedData[key]) {
+        //       groupedData[key] = {};
+        //     }
+        //     console.log(value);
+
+        //     for (const [leagueKey, leagueValue] of Object.entries(value)) {
+        //       if (!groupedData[key][leagueKey]) {
+        //         groupedData[key][leagueKey] = {};
+        //       }
+
+        //       leagueValue.map((league) => {
+        //         const round = league.matchday;
+
+        //         if (!groupedData[key][leagueKey][round]) {
+        //           groupedData[key][leagueKey][round] = [];
+        //         }
+
+        //         groupedData[key][leagueKey][round].push(leagueValue);
+        //       });
+        //     // }
+        //   }
+
+        //   return groupedData;
+        // };
+
+        // console.log(groupDataByRound(fixtures));
 
         setDates(Object.keys(fixtures));
         setRugbyFixtures(Object.entries(fixtures));

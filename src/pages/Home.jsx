@@ -88,6 +88,8 @@ const Home = () => {
 
   const fixtureDates = Dates();
 
+  // console.log(rugbyFixtures);
+
   // const fetchDates = (selectedDates) => {
   //   let date = [...selectedDates];
   //   if (date.length > 7) {

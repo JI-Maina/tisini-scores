@@ -3,25 +3,31 @@ import SingleResult from "./SingleResult";
 import { useEffect, useState } from "react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
-const FootballScores = ({ allFixtures, dates, loading }) => {
+const FootballScores = ({ allFixtures, dates, selectedDate }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const [fixtures, setFixtures] = useState([]);
+  const [filterDate, setfilterDate] = useState(selectedDate || dates[0]);
 
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   useEffect(() => {
+    setfilterDate(selectedDate);
+  }, [selectedDate]);
+
+  useEffect(() => {
     const fetchDayFixtures = () => {
+      const date = filterDate;
       allFixtures.forEach((day) => {
-        if (day[0] === dates[0]) {
+        if (day[0] === date) {
           setFixtures(Object.entries(day[1]));
         }
       });
     };
 
     fetchDayFixtures();
-  }, [allFixtures, dates, loading]);
+  }, [allFixtures, dates, filterDate]);
 
   // console.log(fixtures);
 

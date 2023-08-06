@@ -3,29 +3,31 @@ import React, { useEffect, useState } from "react";
 import SingleResult from "../footballStats/SingleResult";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
-const RugbyScores = ({ allFixtures, dates, loading }) => {
+const RugbyScores = ({ allFixtures, dates, selectedDate }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const [fixtures, setFixtures] = useState([]);
+  const [filterDate, setFilterDate] = useState(selectedDate || dates[0]);
 
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   useEffect(() => {
+    setFilterDate(selectedDate);
+  }, [selectedDate]);
+
+  useEffect(() => {
     const fetchDayFixtures = () => {
+      const date = filterDate;
       allFixtures.forEach((day) => {
-        if (day[0] === dates[0]) {
+        if (day[0] === date) {
           setFixtures(Object.entries(day[1]));
         }
       });
     };
 
     fetchDayFixtures();
-  }, [allFixtures, dates, loading]);
-
-  // console.log(fixtures);
-  // console.log(dates[0]);
-  // console.log(allFixtures);
+  }, [allFixtures, filterDate, dates]);
 
   return (
     <Box display="flex" flexDirection="row" width="100%" p={0.5} pt={0}>
@@ -56,18 +58,16 @@ const RugbyScores = ({ allFixtures, dates, loading }) => {
 
             {league[1].map((fixtures, key) => (
               <Box key={key}>
-                {fixtures["status"] !== "inactive" && (
-                  <SingleResult
-                    homeTeam={fixtures.team1_name}
-                    awayTeam={fixtures.team2_name}
-                    homeScore={fixtures.home_score}
-                    awayScore={fixtures.away_score}
-                    fixtureId={fixtures.id}
-                    fixtureType={fixtures.fixture_type}
-                    fixtureState={fixtures.game_status}
-                    minute={fixtures.minute}
-                  />
-                )}
+                <SingleResult
+                  homeTeam={fixtures.team1_name}
+                  awayTeam={fixtures.team2_name}
+                  homeScore={fixtures.home_score}
+                  awayScore={fixtures.away_score}
+                  fixtureId={fixtures.id}
+                  fixtureType={fixtures.fixture_type}
+                  fixtureState={fixtures.game_status}
+                  minute={fixtures.minute}
+                />
               </Box>
             ))}
           </Box>
