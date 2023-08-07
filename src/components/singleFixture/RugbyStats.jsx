@@ -97,7 +97,7 @@ const RugbyStats = () => {
       <StatsRow
         homeStat={cards.Homeyellow}
         stat={"Yellow cards"}
-        awayStat={cards.Homered}
+        awayStat={cards.Awayyellow}
       />
 
       <StatsRow

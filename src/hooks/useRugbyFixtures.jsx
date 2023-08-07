@@ -66,7 +66,6 @@ const useRugbyFixtures = () => {
         //     if (!groupedData[key]) {
         //       groupedData[key] = {};
         //     }
-        //     console.log(value);
 
         //     for (const [leagueKey, leagueValue] of Object.entries(value)) {
         //       if (!groupedData[key][leagueKey]) {
@@ -82,13 +81,13 @@ const useRugbyFixtures = () => {
 
         //         groupedData[key][leagueKey][round].push(leagueValue);
         //       });
-        //     // }
+        //     }
         //   }
 
         //   return groupedData;
         // };
 
-        // console.log(groupDataByRound(fixtures));
+        // const fixDate = groupDataByRound(fixtures);
 
         setDates(Object.keys(fixtures));
         setRugbyFixtures(Object.entries(fixtures));
