@@ -50,7 +50,7 @@ export default function SingleFootball() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(1);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
