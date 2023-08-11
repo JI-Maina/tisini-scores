@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -65,7 +65,9 @@ const Home = () => {
   const [ballFixtures, ballDates, ballState] = useFootballFixtures();
 
   const [value, setValue] = useState(0);
-  const selectedDates = value === 0 ? ballDates : dates;
+  const [selectedDates, setSelectedDates] = useState(
+    value === 0 ? ballDates : dates
+  );
   const [filterDate, setFilterDate] = useState(selectedDates[0]);
 
   const handleChange = (event, newValue) => {
@@ -86,7 +88,13 @@ const Home = () => {
     return dates;
   };
 
+  useEffect(() => {
+    setSelectedDates(value === 0 ? ballDates : dates);
+  }, [value, ballDates, dates]);
+
   const fixtureDates = Dates();
+  // console.log(value);
+  // console.log(selectedDates);
 
   // console.log(rugbyFixtures);
 

@@ -17,13 +17,32 @@ const RugbyScores = ({ allFixtures, dates, selectedDate }) => {
   }, [selectedDate]);
 
   useEffect(() => {
-    const fetchDayFixtures = () => {
-      const date = filterDate;
-      allFixtures.forEach((day) => {
-        if (day[0] === date) {
-          setFixtures(Object.entries(day[1]));
+    const newData = {};
+
+    for (const date in allFixtures) {
+      const events = allFixtures[date];
+      for (const eventName in events) {
+        const eventData = events[eventName];
+        if (!newData[date]) {
+          newData[date] = {};
         }
-      });
+        if (!newData[date][eventName]) {
+          newData[date][eventName] = {};
+        }
+        eventData.forEach((item) => {
+          const matchday = item.matchday;
+          if (!newData[date][eventName][matchday]) {
+            newData[date][eventName][matchday] = [];
+          }
+          newData[date][eventName][matchday].push(item);
+        });
+      }
+    }
+
+    const fetchDayFixtures = () => {
+      if (newData[filterDate]) {
+        setFixtures(Object.entries(newData[filterDate]));
+      }
     };
 
     fetchDayFixtures();
@@ -51,23 +70,41 @@ const RugbyScores = ({ allFixtures, dates, selectedDate }) => {
                   Kenya:
                 </Typography>
                 <Typography variant="h6" fontSize="small" fontWeight="bold">
-                  {league[0]} - {league[1][0].series}
+                  {league[0]}
                 </Typography>
               </Box>
             </Box>
 
-            {league[1].map((fixtures, key) => (
-              <Box key={key}>
-                <SingleResult
-                  homeTeam={fixtures.team1_name}
-                  awayTeam={fixtures.team2_name}
-                  homeScore={fixtures.home_score}
-                  awayScore={fixtures.away_score}
-                  fixtureId={fixtures.id}
-                  fixtureType={fixtures.fixture_type}
-                  fixtureState={fixtures.game_status}
-                  minute={fixtures.minute}
-                />
+            {/* loop through every matchday */}
+            {Object.entries(league[1]).map((round, index) => (
+              <Box key={index}>
+                <Box
+                  display="flex"
+                  bgcolor={colors.primary[500]}
+                  mb={0.2}
+                  p={0.7}
+                >
+                  <Box display="flex" color={colors.gray[100]} gap={0.5}>
+                    <Typography variant="h6" fontSize="small" fontWeight="bold">
+                      {round[1][0].series} - {round[0]}
+                    </Typography>
+                  </Box>
+                </Box>
+
+                {round[1].map((fixtures, key) => (
+                  <Box key={key}>
+                    <SingleResult
+                      homeTeam={fixtures.team1_name}
+                      awayTeam={fixtures.team2_name}
+                      homeScore={fixtures.home_score}
+                      awayScore={fixtures.away_score}
+                      fixtureId={fixtures.id}
+                      fixtureType={fixtures.fixture_type}
+                      fixtureState={fixtures.game_status}
+                      minute={fixtures.minute}
+                    />
+                  </Box>
+                ))}
               </Box>
             ))}
           </Box>

@@ -13,6 +13,8 @@ const useFootballFixtures = () => {
           "https://apis.tisini.co.ke/apiagent2.php?fixture=all&fixtype=football"
         );
 
+        // console.log(data.data);
+
         const groupDataByDate = (data) => {
           const groupedData = {};
 

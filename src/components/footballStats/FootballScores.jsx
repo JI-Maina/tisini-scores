@@ -29,7 +29,7 @@ const FootballScores = ({ allFixtures, dates, selectedDate }) => {
     fetchDayFixtures();
   }, [allFixtures, dates, filterDate]);
 
-  // console.log(fixtures);
+  // console.log(selectedDate);
 
   return (
     <Box display="flex" flexDirection="row" width="100%" p={0.5} pt={0}>
