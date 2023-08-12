@@ -14,7 +14,7 @@ const useFootballEvents = () => {
   const [fouls, setFouls] = useState([]);
   const [lineups, setLineups] = useState([]);
   const [cards, setCards] = useState([]);
-  const [league, setLeague] = useState([]);
+  // const [league, setLeague] = useState([]);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -23,6 +23,8 @@ const useFootballEvents = () => {
           `https://apis.tisini.co.ke/apiagent2.php?event=${fixtureId}`
         );
 
+        console.log(stats.data);
+
         setDetails(stats.data[0][0]);
         setHome(stats.data[1]);
         setAway(stats.data[2]);
@@ -30,7 +32,7 @@ const useFootballEvents = () => {
         setLineups(stats.data[4]);
         setCards(stats.data[5]);
         setFouls(stats.data[6]);
-        setLeague(stats.data[7]);
+        // setLeague(stats.data[7]);
         setLoading(false);
       } catch (err) {
         console.error(err);
@@ -40,7 +42,7 @@ const useFootballEvents = () => {
     fetchStats();
   }, [fixtureId]);
 
-  return [details, home, away, scores, lineups, cards, fouls, league, loading];
+  return [details, home, away, scores, lineups, cards, fouls, loading];
 };
 
 export default useFootballEvents;

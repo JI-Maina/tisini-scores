@@ -26,8 +26,6 @@ const RugbyScores = ({ allFixtures, dates, selectedDate }) => {
     fetchDayFixtures();
   }, [allFixtures, filterDate]);
 
-  console.log(fixtures);
-
   // useEffect(() => {
   //   const newData = {};
 
