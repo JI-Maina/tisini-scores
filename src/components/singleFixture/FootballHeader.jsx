@@ -6,7 +6,7 @@ import homeLogo from "../../images/homeLogo.png";
 import awayLogo from "../../images/awayLogo.png";
 import { Typography, Box, useTheme } from "@mui/material";
 
-const MatchHeader = () => {
+const FootballHeader = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -215,4 +215,4 @@ const MatchHeader = () => {
   );
 };
 
-export default MatchHeader;
+export default FootballHeader;

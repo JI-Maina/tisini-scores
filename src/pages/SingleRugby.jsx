@@ -5,11 +5,14 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Box, Typography, Grid, useTheme } from "@mui/material";
 
+import useRugbyEvents from "../hooks/useRugbyEvents";
+
 import {
-  FootballScorers,
   LineUps,
-  MatchHeader,
+  RugbyHeader,
+  RugbyStandings,
   RugbyStats,
+  Spinner,
 } from "../components";
 import { tokens } from "../theme";
 
@@ -50,16 +53,23 @@ const SingleRugby = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(1);
+
+  const [details, home, away, scores, lineups, cards, league, loading] =
+    useRugbyEvents();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <Grid container xs={12} p={1}>
       <Box bgcolor={colors.primary[300]} sx={{ width: "100%" }}>
-        <MatchHeader />
+        <RugbyHeader fixDetails={details} fixScores={scores} state={loading} />
         <AppBar position="static">
           <Tabs
             value={value}
@@ -71,18 +81,18 @@ const SingleRugby = () => {
           >
             <Tab label="Lineups" {...a11yProps(0)} />
             <Tab label="Team stats" {...a11yProps(1)} />
-            <Tab label="Top scorers" {...a11yProps(2)} disabled />
+            <Tab label="Standings" {...a11yProps(2)} />
           </Tabs>
         </AppBar>
 
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <LineUps />
+          <LineUps teams={details} squads={lineups} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <RugbyStats />
+          <RugbyStats home={home} away={away} cards={cards} />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <FootballScorers />
+          <RugbyStandings standings={league} />
         </TabPanel>
       </Box>
     </Grid>

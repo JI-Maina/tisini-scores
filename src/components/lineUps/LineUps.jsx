@@ -2,69 +2,56 @@ import React, { useEffect, useState } from "react";
 import LineupsTitle from "./LineupsTitle";
 import { Box, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import axios from "axios";
-import { useParams } from "react-router-dom";
 import HomePlayer from "./HomePlayer";
 import AwayPlayer from "./AwayPlayer";
 
-const LineUps = () => {
+const LineUps = ({ teams, squads }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
-  const { fixtureId } = useParams();
 
   const [homePlayers, setHomePlayers] = useState([]);
   const [awayPlayers, setAwayPlayers] = useState([]);
 
   useEffect(() => {
-    const fetchplayers = async () => {
-      try {
-        const data = await axios.get(
-          `https://apis.tisini.co.ke/apiagent2.php?event=${fixtureId}`
-        );
+    const groupPlayersByTeam = (data, homeId, awayId) => {
+      const teamPlayer = {};
 
-        const players = data.data[4];
+      data.forEach((player) => {
+        const key = player.teamId;
 
-        const groupPlayersByTeam = (data, homeId, awayId) => {
-          const teamPlayer = {};
+        if (!teamPlayer[key]) {
+          teamPlayer[key] = [];
+        }
 
-          data.forEach((player) => {
-            const key = player.teamId;
+        teamPlayer[key].push(player);
+      });
 
-            if (!teamPlayer[key]) {
-              teamPlayer[key] = [];
-            }
+      if (!teamPlayer[awayId]) {
+        teamPlayer[awayId] = [];
+      }
+      if (!teamPlayer[homeId]) {
+        teamPlayer[homeId] = [];
+      }
 
-            teamPlayer[key].push(player);
-          });
+      teamPlayer.home = teamPlayer[homeId];
+      delete teamPlayer[homeId];
+      teamPlayer.away = teamPlayer[awayId];
+      delete teamPlayer[awayId];
 
-          if (!teamPlayer[awayId]) {
-            teamPlayer[awayId] = [];
-          }
-          if (!teamPlayer[homeId]) {
-            teamPlayer[homeId] = [];
-          }
-
-          teamPlayer.home = teamPlayer[homeId];
-          delete teamPlayer[homeId];
-          teamPlayer.away = teamPlayer[awayId];
-          delete teamPlayer[awayId];
-
-          return teamPlayer;
-        };
-
-        const homeId = data.data[0][0].team1_id;
-        const awayId = data.data[0][0].team2_id;
-
-        const lineups = groupPlayersByTeam(players, homeId, awayId);
-
-        setHomePlayers(lineups["home"]);
-        setAwayPlayers(lineups["away"]);
-      } catch (error) {}
+      return teamPlayer;
     };
 
-    fetchplayers();
-  }, [fixtureId]);
+    const homeId = teams.team1_id;
+    const awayId = teams.team2_id;
+
+    const lineups = groupPlayersByTeam(squads, homeId, awayId);
+
+    setHomePlayers(lineups["home"]);
+    setAwayPlayers(lineups["away"]);
+  }, [squads, teams]);
+
+  // console.log(homePlayers);
+  // console.log(awayPlayers);
 
   return (
     <Box bgcolor={colors.primary[300]}>

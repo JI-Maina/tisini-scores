@@ -1,35 +1,8 @@
-import axios from "axios";
 import StatsRow from "./StatsRow";
 import StatsHalf from "./StatsHalf";
 import { Box } from "@mui/material";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 
-const RugbyStats = () => {
-  const { fixtureId } = useParams();
-
-  const [home, setHome] = useState([]);
-  const [away, setAway] = useState([]);
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const stats = await axios(
-          `https://apis.tisini.co.ke/apiagent2.php?event=${fixtureId}`
-        );
-
-        setHome(stats.data[1]);
-        setAway(stats.data[2]);
-        setCards(stats.data[5]);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchStats();
-  }, [fixtureId]);
-
+const RugbyStats = ({ home, away, cards }) => {
   const getStat = (arry, name) => {
     let stat = 0;
     if (!arry) {

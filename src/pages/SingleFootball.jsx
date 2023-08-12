@@ -7,10 +7,10 @@ import { tokens } from "../theme";
 import { Box, Typography, Grid, useTheme } from "@mui/material";
 
 import {
+  FootballHeader,
   FootballScorers,
   GeneralStats,
   LineUps,
-  MatchHeader,
 } from "../components";
 
 function TabPanel(props) {
@@ -59,7 +59,7 @@ export default function SingleFootball() {
   return (
     <Grid container xs={12} p={1}>
       <Box bgcolor={colors.primary[300]} sx={{ width: "100%" }}>
-        <MatchHeader />
+        <FootballHeader />
         <AppBar position="static">
           <Tabs
             value={value}
