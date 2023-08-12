@@ -1,37 +1,8 @@
 import { Box } from "@mui/material";
 import StatsRow from "./StatsRow";
 import StatsHalf from "./StatsHalf";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
-const GeneralStats = () => {
-  const { fixtureId } = useParams();
-
-  const [home, setHome] = useState([]);
-  const [away, setAway] = useState([]);
-  const [cards, setCards] = useState([]);
-  const [fouls, setFouls] = useState([]);
-
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const stats = await axios(
-          `https://apis.tisini.co.ke/apiagent2.php?event=${fixtureId}`
-        );
-
-        setHome(stats.data[1]);
-        setAway(stats.data[2]);
-        setCards(stats.data[5]);
-        setFouls(stats.data[6]);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchStats();
-  }, [fixtureId]);
-
+const FootballStats = ({ home, away, cards, fouls }) => {
   const getStat = (arry, name) => {
     let stat = 0;
     if (!arry) {
@@ -117,4 +88,4 @@ const GeneralStats = () => {
   );
 };
 
-export default GeneralStats;
+export default FootballStats;

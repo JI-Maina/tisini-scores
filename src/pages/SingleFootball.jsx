@@ -8,10 +8,12 @@ import { Box, Typography, Grid, useTheme } from "@mui/material";
 
 import {
   FootballHeader,
+  FootballLineUps,
   FootballScorers,
-  GeneralStats,
-  LineUps,
+  FootballStats,
+  Spinner,
 } from "../components";
+import useFootballEvents from "../hooks/useFootballEvents";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,16 +52,23 @@ export default function SingleFootball() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const [details, home, away, scores, lineups, cards, fouls, loading] =
+    useFootballEvents();
+
   const [value, setValue] = React.useState(1);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <Grid container xs={12} p={1}>
       <Box bgcolor={colors.primary[300]} sx={{ width: "100%" }}>
-        <FootballHeader />
+        <FootballHeader teams={details} scores={scores} />
         <AppBar position="static">
           <Tabs
             value={value}
@@ -76,10 +85,10 @@ export default function SingleFootball() {
         </AppBar>
 
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <LineUps />
+          <FootballLineUps teams={details} squads={lineups} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <GeneralStats />
+          <FootballStats home={home} away={away} cards={cards} fouls={fouls} />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           <FootballScorers />

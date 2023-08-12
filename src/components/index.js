@@ -3,11 +3,12 @@ export { default as Footer } from "./footer/Footer";
 
 export { default as FixtureDates } from "./date/FixtureDates";
 
-export { default as LineUps } from "./lineUps/LineUps";
+export { default as FootballLineUps } from "./lineUps/FootballLineUps";
+export { default as RugbyLineUps } from "./lineUps/RugbyLineUps";
 
 export { default as FootballHeader } from "./singleFixture/FootballHeader";
 export { default as RugbyHeader } from "./singleFixture/RugbyHeader";
-export { default as GeneralStats } from "./singleFixture/GeneralStats";
+export { default as FootballStats } from "./singleFixture/FootballStats";
 export { default as RugbyStats } from "./singleFixture/RugbyStats";
 export { default as FootballScorers } from "./singleFixture/FootballScorers";
 export { default as RugbyStandings } from "./singleFixture/RugbyStandings";

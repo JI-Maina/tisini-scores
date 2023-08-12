@@ -1,40 +1,11 @@
-import axios from "axios";
 import { tokens } from "../../theme";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import homeLogo from "../../images/homeLogo.png";
 import awayLogo from "../../images/awayLogo.png";
 import { Typography, Box, useTheme } from "@mui/material";
 
-const FootballHeader = () => {
+const FootballHeader = ({ teams, scores }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
-  const { fixtureId } = useParams();
-
-  const [teams, setTeams] = useState();
-  const [scores, setScores] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const teams = await axios(
-          `https://apis.tisini.co.ke/apiagent2.php?event=${fixtureId}`
-        );
-
-        setTeams(teams.data[0][0]);
-        setScores(teams.data[3]);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchData();
-  }, [fixtureId]);
-
-  if (!teams) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <Box display="flex" flexDirection="column" bgcolor={colors.primary[300]}>

@@ -8,8 +8,8 @@ import { Box, Typography, Grid, useTheme } from "@mui/material";
 import useRugbyEvents from "../hooks/useRugbyEvents";
 
 import {
-  LineUps,
   RugbyHeader,
+  RugbyLineUps,
   RugbyStandings,
   RugbyStats,
   Spinner,
@@ -69,7 +69,7 @@ const SingleRugby = () => {
   return (
     <Grid container xs={12} p={1}>
       <Box bgcolor={colors.primary[300]} sx={{ width: "100%" }}>
-        <RugbyHeader fixDetails={details} fixScores={scores} state={loading} />
+        <RugbyHeader fixDetails={details} fixScores={scores} />
         <AppBar position="static">
           <Tabs
             value={value}
@@ -86,7 +86,7 @@ const SingleRugby = () => {
         </AppBar>
 
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <LineUps teams={details} squads={lineups} />
+          <RugbyLineUps teams={details} squads={lineups} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <RugbyStats home={home} away={away} cards={cards} />

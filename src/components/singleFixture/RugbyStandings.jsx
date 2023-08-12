@@ -28,7 +28,7 @@ export default function RugbyStandings({ standings }) {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.team_name}
+                {row.position}) {row.team_name}
               </TableCell>
               <TableCell>{row.totalpts}</TableCell>
               <TableCell>{row.round1}</TableCell>
