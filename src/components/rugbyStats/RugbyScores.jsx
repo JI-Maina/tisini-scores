@@ -80,7 +80,7 @@ const RugbyScores = ({ allFixtures, dates, selectedDate }) => {
                   Kenya:
                 </Typography>
                 <Typography variant="h6" fontSize="small" fontWeight="bold">
-                  {league[0]}
+                  {league[0]} - {league[1][0].series}
                 </Typography>
               </Box>
             </Box>
