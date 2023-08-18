@@ -64,7 +64,7 @@ const Home = () => {
   const [rugbyFixtures, dates, loading] = useRugbyFixtures();
   const [ballFixtures, ballDates, ballState] = useFootballFixtures();
 
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(0);
   const [selectedDates, setSelectedDates] = useState(
     value === 0 ? ballDates : dates
   );
