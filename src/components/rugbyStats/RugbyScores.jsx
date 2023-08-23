@@ -1,15 +1,25 @@
 import { tokens } from "../../theme";
-import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import SingleResult from "../footballStats/SingleResult";
+import React, { useEffect, useMemo, useState } from "react";
+import FetchRugbyFixtures from "../../utilis/FetchRugbyFixtures";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import useRugbyFixtures from "../../hooks/useRugbyFixtures";
+
 import Spinner from "../loading/Spinner";
 
 const RugbyScores = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const [rugbyFixtures, dates, loading] = useRugbyFixtures();
+  const { isLoading, data } = useQuery("rugbyFixtures", FetchRugbyFixtures);
+
+  const rugbyFixtures = useMemo(() => {
+    return data ? data : [];
+  }, [data]);
+
+  const dates = useMemo(() => {
+    return data ? Object.keys(data) : [];
+  }, [data]);
 
   const [fixtures, setFixtures] = useState([]);
   const [filterDate, setFilterDate] = useState(dates[0]);
@@ -62,7 +72,7 @@ const RugbyScores = () => {
   //   fetchDayFixtures();
   // }, [allFixtures, filterDate, dates]);
 
-  if (loading) return <Spinner />;
+  if (isLoading) return <Spinner />;
 
   return (
     <Box display="flex" flexDirection="row" width="100%" p={0.5} pt={0}>
