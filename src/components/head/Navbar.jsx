@@ -17,7 +17,6 @@ import MenuItem from "@mui/material/MenuItem";
 
 import { Link, useNavigate } from "react-router-dom";
 
-const pages = ["Football", "Rugby"];
 const settings = ["Profile", "Account", "Logout"];
 
 function Navbar() {
