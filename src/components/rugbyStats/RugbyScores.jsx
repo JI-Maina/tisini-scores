@@ -2,29 +2,33 @@ import { tokens } from "../../theme";
 import React, { useEffect, useState } from "react";
 import SingleResult from "../footballStats/SingleResult";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import useRugbyFixtures from "../../hooks/useRugbyFixtures";
+import Spinner from "../loading/Spinner";
 
-const RugbyScores = ({ allFixtures, dates, selectedDate }) => {
+const RugbyScores = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const [rugbyFixtures, dates, loading] = useRugbyFixtures();
+
   const [fixtures, setFixtures] = useState([]);
-  const [filterDate, setFilterDate] = useState(selectedDate || dates[0]);
+  const [filterDate, setFilterDate] = useState(dates[0]);
 
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   useEffect(() => {
-    setFilterDate(selectedDate);
-  }, [selectedDate]);
+    setFilterDate(dates[0]);
+  }, [dates]);
 
   useEffect(() => {
     const fetchDayFixtures = () => {
-      if (allFixtures[filterDate]) {
-        setFixtures(Object.entries(allFixtures[filterDate]));
+      if (rugbyFixtures[filterDate]) {
+        setFixtures(Object.entries(rugbyFixtures[filterDate]));
       }
     };
 
     fetchDayFixtures();
-  }, [allFixtures, filterDate]);
+  }, [rugbyFixtures, filterDate]);
 
   // useEffect(() => {
   //   const newData = {};
@@ -57,6 +61,8 @@ const RugbyScores = ({ allFixtures, dates, selectedDate }) => {
 
   //   fetchDayFixtures();
   // }, [allFixtures, filterDate, dates]);
+
+  if (loading) return <Spinner />;
 
   return (
     <Box display="flex" flexDirection="row" width="100%" p={0.5} pt={0}>

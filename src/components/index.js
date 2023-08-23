@@ -1,4 +1,5 @@
 export { default as Header } from "./head/Header";
+export { default as Navbar } from "./head/Navbar";
 export { default as Footer } from "./footer/Footer";
 
 export { default as FixtureDates } from "./date/FixtureDates";

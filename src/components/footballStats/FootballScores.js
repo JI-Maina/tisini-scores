@@ -1,25 +1,29 @@
-import { tokens } from "../../theme";
-import SingleResult from "./SingleResult";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import useFootballFixtures from "../../hooks/useFootballFixtures";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { tokens } from "../../theme";
+import Spinner from "../loading/Spinner";
+import SingleResult from "./SingleResult";
 
-const FootballScores = ({ allFixtures, dates, selectedDate }) => {
+const FootballScores = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const [ballFixtures, ballDates, ballState] = useFootballFixtures();
+
   const [fixtures, setFixtures] = useState([]);
-  const [filterDate, setfilterDate] = useState(selectedDate || dates[0]);
+  const [filterDate, setFilterDate] = useState(ballDates[0]);
 
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   useEffect(() => {
-    setfilterDate(selectedDate);
-  }, [selectedDate]);
+    setFilterDate(ballDates[0]);
+  }, [ballDates]);
 
   useEffect(() => {
     const fetchDayFixtures = () => {
       const date = filterDate;
-      allFixtures.forEach((day) => {
+      ballFixtures.forEach((day) => {
         if (day[0] === date) {
           setFixtures(Object.entries(day[1]));
         }
@@ -27,9 +31,11 @@ const FootballScores = ({ allFixtures, dates, selectedDate }) => {
     };
 
     fetchDayFixtures();
-  }, [allFixtures, dates, filterDate]);
+  }, [ballFixtures, ballDates, filterDate]);
 
-  // console.log(selectedDate);
+  if (ballState) {
+    return <Spinner />;
+  }
 
   return (
     <Box display="flex" flexDirection="row" width="100%" p={0.5} pt={0}>

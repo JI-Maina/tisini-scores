@@ -68,34 +68,41 @@ export default function SingleFootball() {
   }
 
   return (
-    <Grid container xs={12} p={1}>
-      <Box bgcolor={colors.primary[300]} sx={{ width: "100%" }}>
-        <FootballHeader teams={details} scores={scores} />
-        <AppBar position="static">
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="secondary"
-            textColor="secondary"
-            variant="fullWidth"
-            aria-label="full width tabs example"
-          >
-            <Tab label="Lineups" {...a11yProps(0)} />
-            <Tab label="Team stats" {...a11yProps(1)} />
-            <Tab label="Top scorers" {...a11yProps(2)} disabled />
-          </Tabs>
-        </AppBar>
+    <Grid container>
+      <Grid item xs={12} p={1}>
+        <Box bgcolor={colors.primary[300]} sx={{ width: "100%" }}>
+          <FootballHeader teams={details} scores={scores} />
+          <AppBar position="static">
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              indicatorColor="secondary"
+              textColor="secondary"
+              variant="fullWidth"
+              aria-label="full width tabs example"
+            >
+              <Tab label="Lineups" {...a11yProps(0)} />
+              <Tab label="Team stats" {...a11yProps(1)} />
+              <Tab label="Top scorers" {...a11yProps(2)} disabled />
+            </Tabs>
+          </AppBar>
 
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <FootballLineUps teams={details} squads={lineups} />
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <FootballStats home={home} away={away} cards={cards} fouls={fouls} />
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          <FootballScorers />
-        </TabPanel>
-      </Box>
+          <TabPanel value={value} index={0} dir={theme.direction}>
+            <FootballLineUps teams={details} squads={lineups} />
+          </TabPanel>
+          <TabPanel value={value} index={1} dir={theme.direction}>
+            <FootballStats
+              home={home}
+              away={away}
+              cards={cards}
+              fouls={fouls}
+            />
+          </TabPanel>
+          <TabPanel value={value} index={2} dir={theme.direction}>
+            <FootballScorers />
+          </TabPanel>
+        </Box>
+      </Grid>
     </Grid>
   );
 }

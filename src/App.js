@@ -1,10 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import Layout from "./pages/Layout";
-import Home from "./pages/Home";
-import SingleRugby from "./pages/SingleRugby";
-import SingleFootball from "./pages/SingleFootball";
+
+import { Football, Layout, Rugby, SingleFootball, SingleRugby } from "./pages";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -17,7 +15,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
+              <Route index element={<Football />} />
+              <Route path="/rugby" element={<Rugby />} />
               <Route path="/football/:fixtureId" element={<SingleFootball />} />
               <Route path="/rugby/:fixtureId" element={<SingleRugby />} />
             </Route>

@@ -1,8 +1,8 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
-import Header from "../components/head/Header";
 import { Box, Grid, useTheme } from "@mui/material";
 import { tokens } from "../theme";
+
+import Header from "../components/head/Header";
 import Footer from "../components/footer/Footer";
 
 const Layout = () => {

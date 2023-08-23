@@ -67,34 +67,36 @@ const SingleRugby = () => {
   }
 
   return (
-    <Grid container xs={12} p={1}>
-      <Box bgcolor={colors.primary[300]} sx={{ width: "100%" }}>
-        <RugbyHeader fixDetails={details} fixScores={scores} />
-        <AppBar position="static">
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="secondary"
-            textColor="secondary"
-            variant="fullWidth"
-            aria-label="full width tabs example"
-          >
-            <Tab label="Lineups" {...a11yProps(0)} />
-            <Tab label="Team stats" {...a11yProps(1)} />
-            <Tab label="Standings" {...a11yProps(2)} />
-          </Tabs>
-        </AppBar>
+    <Grid container>
+      <Grid item xs={12} p={1}>
+        <Box bgcolor={colors.primary[300]} sx={{ width: "100%" }}>
+          <RugbyHeader fixDetails={details} fixScores={scores} />
+          <AppBar position="static">
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              indicatorColor="secondary"
+              textColor="secondary"
+              variant="fullWidth"
+              aria-label="full width tabs example"
+            >
+              <Tab label="Lineups" {...a11yProps(0)} />
+              <Tab label="Team stats" {...a11yProps(1)} />
+              <Tab label="Standings" {...a11yProps(2)} />
+            </Tabs>
+          </AppBar>
 
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <RugbyLineUps teams={details} squads={lineups} />
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <RugbyStats home={home} away={away} cards={cards} />
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          <RugbyStandings standings={league} />
-        </TabPanel>
-      </Box>
+          <TabPanel value={value} index={0} dir={theme.direction}>
+            <RugbyLineUps teams={details} squads={lineups} />
+          </TabPanel>
+          <TabPanel value={value} index={1} dir={theme.direction}>
+            <RugbyStats home={home} away={away} cards={cards} />
+          </TabPanel>
+          <TabPanel value={value} index={2} dir={theme.direction}>
+            <RugbyStandings standings={league} />
+          </TabPanel>
+        </Box>
+      </Grid>
     </Grid>
   );
 };
