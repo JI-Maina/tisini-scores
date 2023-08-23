@@ -15,7 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 // import AdbIcon from "@mui/icons-material/Adb";
 // import logo from "../../images/tisini-Logo.png";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const pages = ["Football", "Rugby"];
 const settings = ["Profile", "Account", "Logout"];
@@ -99,13 +99,21 @@ function Navbar() {
               }}
             >
               <MenuItem>
-                <Typography>Home</Typography>
+                <Link
+                  to={"/"}
+                  style={{ textDecoration: "none", color: "white" }}
+                >
+                  Football
+                </Link>
               </MenuItem>
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem>
+                <Link
+                  to={"/rugby"}
+                  style={{ textDecoration: "none", color: "white" }}
+                >
+                  Rugby
+                </Link>
+              </MenuItem>
             </Menu>
           </Box>
 

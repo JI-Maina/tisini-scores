@@ -55,8 +55,6 @@ export default function SingleFootball() {
   const [details, home, away, scores, lineups, cards, fouls, loading] =
     useFootballEvents();
 
-  console.log(loading);
-
   const [value, setValue] = React.useState(1);
 
   const handleChange = (event, newValue) => {

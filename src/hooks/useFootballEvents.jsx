@@ -23,8 +23,6 @@ const useFootballEvents = () => {
           `https://apis.tisini.co.ke/apiagent2.php?event=${fixtureId}`
         );
 
-        console.log(stats.data);
-
         setDetails(stats.data[0][0]);
         setHome(stats.data[1]);
         setAway(stats.data[2]);
