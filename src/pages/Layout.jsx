@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Box, Grid, useTheme } from "@mui/material";
+import { Box, Container, useTheme } from "@mui/material";
 import { tokens } from "../theme";
 
 import Header from "../components/head/Header";
@@ -10,21 +10,43 @@ const Layout = () => {
   const colors = tokens(theme.palette.mode);
 
   return (
-    <Box minHeight="100vh" display="flex" flexDirection="column">
-      <Header />
+    <>
+      <Container maxWidth="md">
+        <Box minHeight="100vh" display="flex" flexDirection="column">
+          <Header />
 
-      <Grid container>
-        <Grid item xs={2} sx={{ display: { xs: "none", sm: "block" } }}></Grid>
+          <Box bgcolor={colors.primary[400]}>
+            <Outlet />
+          </Box>
 
-        <Grid item xs={12} sm={8} bgcolor={colors.primary[400]}>
-          <Outlet />
+          <Footer />
+        </Box>
+      </Container>
+
+      {/* <Box minHeight="100vh" display="flex" flexDirection="column">
+        <Header />
+
+        <Grid container>
+          <Grid
+            item
+            xs={2}
+            sx={{ display: { xs: "none", sm: "block" } }}
+          ></Grid>
+
+          <Grid item xs={12} sm={8} bgcolor={colors.primary[400]}>
+            <Outlet />
+          </Grid>
+
+          <Grid
+            item
+            xs={2}
+            sx={{ display: { xs: "none", sm: "block" } }}
+          ></Grid>
         </Grid>
 
-        <Grid item xs={2} sx={{ display: { xs: "none", sm: "block" } }}></Grid>
-      </Grid>
-
-      <Footer />
-    </Box>
+        <Footer />
+      </Box> */}
+    </>
   );
 };
 
