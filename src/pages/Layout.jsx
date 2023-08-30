@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Box, Container, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { tokens } from "../theme";
 
 import Header from "../components/head/Header";
@@ -11,7 +11,7 @@ const Layout = () => {
 
   return (
     <>
-      <Container maxWidth="md">
+      <Box maxWidth="md" margin="auto">
         <Box minHeight="100vh" display="flex" flexDirection="column">
           <Header />
 
@@ -21,7 +21,7 @@ const Layout = () => {
 
           <Footer />
         </Box>
-      </Container>
+      </Box>
 
       {/* <Box minHeight="100vh" display="flex" flexDirection="column">
         <Header />
