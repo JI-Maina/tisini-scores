@@ -3,9 +3,9 @@ import { useQuery } from "react-query";
 import React, { useEffect, useMemo, useState } from "react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
-import Spinner from "../loading/Spinner";
 import SingleResult from "./SingleResult";
-import { Dates } from "../../components";
+import { Dates, Spinner } from "../../components";
+import GroupBallFixtures from "../../utilis/GroupBallFixtures";
 import fetchFootballFixtures from "../../utilis/FetchFootballFixtures";
 
 const FootballScores = () => {
@@ -20,11 +20,17 @@ const FootballScores = () => {
   );
 
   const ballFixtures = useMemo(() => {
-    return data ? Object.entries(data) : [];
+    if (!data) return [];
+
+    const fixtures = GroupBallFixtures(data.data);
+    return data ? Object.entries(fixtures) : [];
   }, [data]);
 
   const ballDates = useMemo(() => {
-    return data ? Object.keys(data) : [];
+    if (!data) return [];
+
+    const fixtures = GroupBallFixtures(data.data);
+    return data ? Object.keys(fixtures) : [];
   }, [data]);
 
   const [fixtures, setFixtures] = useState([]);

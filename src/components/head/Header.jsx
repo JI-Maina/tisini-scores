@@ -13,7 +13,7 @@ const Header = () => {
           backgroundSize: "fit",
           backgroundPosition: "center",
           width: "100%",
-          height: "10em",
+          height: "13em",
           position: "relative",
         }}
       >

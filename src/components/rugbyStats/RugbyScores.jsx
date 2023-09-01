@@ -2,11 +2,11 @@ import { tokens } from "../../theme";
 import { useQuery } from "react-query";
 import SingleResult from "../footballStats/SingleResult";
 import React, { useEffect, useMemo, useState } from "react";
-import FetchRugbyFixtures from "../../utilis/FetchRugbyFixtures";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
-import Spinner from "../loading/Spinner";
-import { Dates } from "../../components";
+import { Dates, Spinner } from "../../components";
+import FetchRugbyFixtures from "../../utilis/FetchRugbyFixtures";
+import GroupRubgyFixtures from "../../utilis/GroupRubgyFixtures";
 
 const RugbyScores = () => {
   const theme = useTheme();
@@ -17,11 +17,17 @@ const RugbyScores = () => {
   const { isLoading, data } = useQuery("rugbyFixtures", FetchRugbyFixtures);
 
   const rugbyFixtures = useMemo(() => {
-    return data ? data : [];
+    if (!data) return [];
+
+    const fixtures = GroupRubgyFixtures(data.data);
+    return data ? fixtures : [];
   }, [data]);
 
   const rugbyDates = useMemo(() => {
-    return data ? Object.keys(data) : [];
+    if (!data) return [];
+
+    const fixtures = GroupRubgyFixtures(data.data);
+    return data ? Object.keys(fixtures) : [];
   }, [data]);
 
   const [fixtures, setFixtures] = useState([]);

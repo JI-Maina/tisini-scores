@@ -1,9 +1,9 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import AppBar from "@mui/material/AppBar";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import React from "react";
 import { tokens } from "../theme";
+import PropTypes from "prop-types";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import AppBar from "@mui/material/AppBar";
 import { Box, Typography, Grid, useTheme } from "@mui/material";
 
 import {

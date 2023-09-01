@@ -42,7 +42,7 @@ const Dates = ({ date, onClick, isSelected }) => {
   return (
     <Box
       m={0.8}
-      p={0.4}
+      p={0.3}
       onMouseOver={() => setCursor("pointer")}
       onClick={() => onClick(date)}
       bgcolor={isSelected ? "blueviolet" : ""}

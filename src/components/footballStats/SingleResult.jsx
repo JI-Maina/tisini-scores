@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Box, Grid, Typography } from "@mui/material";
+
 import homeLogo from "../../images/homeLogo.png";
 import awayLogo from "../../images/awayLogo.png";
 
