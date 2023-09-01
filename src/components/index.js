@@ -1,5 +1,4 @@
 export { default as Header } from "./head/Header";
-export { default as Navbar } from "./head/Navbar";
 export { default as Footer } from "./footer/Footer";
 
 export { default as FixtureDates } from "./date/FixtureDates";
@@ -13,6 +12,7 @@ export { default as FootballStats } from "./singleFixture/FootballStats";
 export { default as RugbyStats } from "./singleFixture/RugbyStats";
 export { default as FootballScorers } from "./singleFixture/FootballScorers";
 export { default as RugbyStandings } from "./singleFixture/RugbyStandings";
+export { default as Dates } from "./singleFixture/Dates";
 
 export { default as FootballScores } from "./footballStats/FootballScores";
 export { default as RugbyScores } from "./rugbyStats/RugbyScores";

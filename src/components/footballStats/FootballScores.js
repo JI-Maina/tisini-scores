@@ -1,9 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import { useQuery } from "react-query";
+import React, { useEffect, useMemo, useState } from "react";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+
 import Spinner from "../loading/Spinner";
 import SingleResult from "./SingleResult";
+import { Dates } from "../../components";
 import fetchFootballFixtures from "../../utilis/FetchFootballFixtures";
 
 const FootballScores = () => {
@@ -27,6 +29,8 @@ const FootballScores = () => {
 
   const [fixtures, setFixtures] = useState([]);
   const [filterDate, setFilterDate] = useState(ballDates[0]);
+
+  const dates = ballDates.slice(0, 7).reverse();
 
   useEffect(() => {
     setFilterDate(ballDates[0]);
@@ -63,6 +67,23 @@ const FootballScores = () => {
       )}
 
       <Box width="100%" mt={0.5}>
+        <Box
+          m={0.3}
+          display="flex"
+          justifyContent="space-evenly"
+          bgcolor={colors.primary[900]}
+        >
+          {dates.map((date, key) => (
+            <Box key={key}>
+              <Dates
+                date={date}
+                onClick={(date) => setFilterDate(date)}
+                isSelected={date === filterDate}
+              />
+            </Box>
+          ))}
+        </Box>
+
         {fixtures.map((league, key) => (
           <Box mb={2} key={key}>
             <Box display="flex" bgcolor={colors.primary[600]} mb={0.2} p={0.7}>

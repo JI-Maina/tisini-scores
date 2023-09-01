@@ -6,10 +6,13 @@ import FetchRugbyFixtures from "../../utilis/FetchRugbyFixtures";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 import Spinner from "../loading/Spinner";
+import { Dates } from "../../components";
 
 const RugbyScores = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const { isLoading, data } = useQuery("rugbyFixtures", FetchRugbyFixtures);
 
@@ -17,18 +20,18 @@ const RugbyScores = () => {
     return data ? data : [];
   }, [data]);
 
-  const dates = useMemo(() => {
+  const rugbyDates = useMemo(() => {
     return data ? Object.keys(data) : [];
   }, [data]);
 
   const [fixtures, setFixtures] = useState([]);
-  const [filterDate, setFilterDate] = useState(dates[0]);
+  const [filterDate, setFilterDate] = useState(rugbyDates[0]);
 
-  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const dates = rugbyDates.slice(0, 7).reverse();
 
   useEffect(() => {
-    setFilterDate(dates[0]);
-  }, [dates]);
+    setFilterDate(rugbyDates[0]);
+  }, [rugbyDates]);
 
   useEffect(() => {
     const fetchDayFixtures = () => {
@@ -88,6 +91,23 @@ const RugbyScores = () => {
       )}
 
       <Box width="100%" mt={0.5}>
+        <Box
+          m={0.3}
+          display="flex"
+          justifyContent="space-evenly"
+          bgcolor={colors.primary[900]}
+        >
+          {dates.map((date, key) => (
+            <Box key={key}>
+              <Dates
+                date={date}
+                onClick={(date) => setFilterDate(date)}
+                isSelected={date === filterDate}
+              />
+            </Box>
+          ))}
+        </Box>
+
         {fixtures.map((league, key) => (
           <Box mb={2} key={key}>
             <Box display="flex" bgcolor={colors.primary[600]} mb={0.2} p={0.7}>
