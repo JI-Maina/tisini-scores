@@ -15,8 +15,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<Football />} />
-              <Route path="/rugby" element={<Rugby />} />
+              <Route index element={<Rugby />} />
+              <Route path="/football" element={<Football />} />
               <Route path="/football/:fixtureId" element={<SingleFootball />} />
               <Route path="/rugby/:fixtureId" element={<SingleRugby />} />
             </Route>
