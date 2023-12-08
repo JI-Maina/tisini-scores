@@ -18,6 +18,9 @@ const FootballStats = ({ home, away, cards, fouls }) => {
     return parseInt(stat);
   };
 
+  // console.log();
+  // console.log();
+
   const passAccuracy = (arry, complete, incomplete) => {
     const compPasses = getStat(arry, complete);
     const totalPasses = compPasses + getStat(arry, incomplete);
@@ -56,8 +59,26 @@ const FootballStats = ({ home, away, cards, fouls }) => {
       />
 
       <StatsRow
+        homeStat={getStat(home, "Corner")}
+        stat={"Corner kicks"}
+        awayStat={getStat(away, "Corner")}
+      />
+
+      <StatsRow
+        homeStat={getStat(home, "Offside")}
+        stat={"Offsides"}
+        awayStat={getStat(away, "Offside")}
+      />
+
+      <StatsRow
+        homeStat={getStat(home, "Tackles")}
+        stat={"Tackles"}
+        awayStat={getStat(away, "Tackles")}
+      />
+
+      <StatsRow
         homeStat={fouls.Homecommitted}
-        stat={"Fouls"}
+        stat={"Fouls committed"}
         awayStat={fouls.Awaycommitted}
       />
 
@@ -71,18 +92,6 @@ const FootballStats = ({ home, away, cards, fouls }) => {
         homeStat={cards.Homered}
         stat={"Red cards"}
         awayStat={cards.Awayred}
-      />
-
-      <StatsRow
-        homeStat={getStat(home, "Offside")}
-        stat={"Offsides"}
-        awayStat={getStat(away, "Offside")}
-      />
-
-      <StatsRow
-        homeStat={getStat(home, "Corner")}
-        stat={"Corners"}
-        awayStat={getStat(away, "Corner")}
       />
     </Box>
   );

@@ -1,9 +1,11 @@
 import * as React from "react";
-import PropTypes from "prop-types";
+import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Box, Typography, Grid, useTheme } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 
 import useRugbyEvents from "../hooks/useRugbyEvents";
 
@@ -35,12 +37,6 @@ function TabPanel(props) {
     </div>
   );
 }
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
 
 function a11yProps(index) {
   return {

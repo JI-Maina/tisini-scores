@@ -23,6 +23,7 @@ const FootballScores = () => {
     if (!data) return [];
 
     const fixtures = GroupBallFixtures(data.data);
+
     return data ? Object.entries(fixtures) : [];
   }, [data]);
 

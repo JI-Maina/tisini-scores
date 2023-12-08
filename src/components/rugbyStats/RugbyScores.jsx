@@ -16,6 +16,8 @@ const RugbyScores = () => {
 
   const { isLoading, data } = useQuery("rugbyFixtures", FetchRugbyFixtures);
 
+  console.log(data);
+
   const rugbyFixtures = useMemo(() => {
     if (!data) return [];
 

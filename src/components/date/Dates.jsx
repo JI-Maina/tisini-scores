@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 
-const Dates = (day) => {
+const Dates = () => {
   const formatDate = () => {
     const date = new Date(day);
     const options = { weekday: "short", month: "2-digit", day: "2-digit" };
