@@ -1,6 +1,7 @@
-import { Link } from '@tanstack/react-router'
-import { tisiniLogo } from '#/assets'
 import { SearchIcon } from 'lucide-react'
+import { Link } from '@tanstack/react-router'
+
+import { tisiniLogo } from '#/assets'
 import type { League } from '#/lib/types'
 import { leagueToSlug } from '#/lib/league-slug'
 
@@ -42,6 +43,17 @@ export default function SiteHeader({ data }: { data: League[] }) {
                   className="text-lg font-semibold"
                 >
                   Matches
+                </Link>
+              </li>
+            ) : null}
+            {activeLeagueSlug ? (
+              <li>
+                <Link
+                  to="/$leagueSlug/standings"
+                  params={{ leagueSlug: activeLeagueSlug }}
+                  className="text-lg font-semibold"
+                >
+                  Standings
                 </Link>
               </li>
             ) : null}

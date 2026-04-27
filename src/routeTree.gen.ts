@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LeaguesRouteRouteImport } from './routes/_leagues/route'
 import { Route as LeaguesIndexRouteImport } from './routes/_leagues/index'
+import { Route as LeaguesLeagueSlugStandingsIndexRouteImport } from './routes/_leagues/$leagueSlug/standings/index'
 import { Route as LeaguesLeagueSlugMatchesIndexRouteImport } from './routes/_leagues/$leagueSlug/matches/index'
 import { Route as LeaguesLeagueSlugMatchesMatchIdRouteRouteImport } from './routes/_leagues/$leagueSlug/matches/$matchId/route'
 import { Route as LeaguesLeagueSlugMatchesMatchIdIndexRouteImport } from './routes/_leagues/$leagueSlug/matches/$matchId/index'
@@ -27,6 +28,12 @@ const LeaguesIndexRoute = LeaguesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LeaguesRouteRoute,
 } as any)
+const LeaguesLeagueSlugStandingsIndexRoute =
+  LeaguesLeagueSlugStandingsIndexRouteImport.update({
+    id: '/$leagueSlug/standings/',
+    path: '/$leagueSlug/standings/',
+    getParentRoute: () => LeaguesRouteRoute,
+  } as any)
 const LeaguesLeagueSlugMatchesIndexRoute =
   LeaguesLeagueSlugMatchesIndexRouteImport.update({
     id: '/$leagueSlug/matches/',
@@ -68,6 +75,7 @@ export interface FileRoutesByFullPath {
   '/': typeof LeaguesIndexRoute
   '/$leagueSlug/matches/$matchId': typeof LeaguesLeagueSlugMatchesMatchIdRouteRouteWithChildren
   '/$leagueSlug/matches/': typeof LeaguesLeagueSlugMatchesIndexRoute
+  '/$leagueSlug/standings/': typeof LeaguesLeagueSlugStandingsIndexRoute
   '/$leagueSlug/matches/$matchId/h2h': typeof LeaguesLeagueSlugMatchesMatchIdH2hRoute
   '/$leagueSlug/matches/$matchId/lineups': typeof LeaguesLeagueSlugMatchesMatchIdLineupsRoute
   '/$leagueSlug/matches/$matchId/stats': typeof LeaguesLeagueSlugMatchesMatchIdStatsRoute
@@ -76,6 +84,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof LeaguesIndexRoute
   '/$leagueSlug/matches': typeof LeaguesLeagueSlugMatchesIndexRoute
+  '/$leagueSlug/standings': typeof LeaguesLeagueSlugStandingsIndexRoute
   '/$leagueSlug/matches/$matchId/h2h': typeof LeaguesLeagueSlugMatchesMatchIdH2hRoute
   '/$leagueSlug/matches/$matchId/lineups': typeof LeaguesLeagueSlugMatchesMatchIdLineupsRoute
   '/$leagueSlug/matches/$matchId/stats': typeof LeaguesLeagueSlugMatchesMatchIdStatsRoute
@@ -87,6 +96,7 @@ export interface FileRoutesById {
   '/_leagues/': typeof LeaguesIndexRoute
   '/_leagues/$leagueSlug/matches/$matchId': typeof LeaguesLeagueSlugMatchesMatchIdRouteRouteWithChildren
   '/_leagues/$leagueSlug/matches/': typeof LeaguesLeagueSlugMatchesIndexRoute
+  '/_leagues/$leagueSlug/standings/': typeof LeaguesLeagueSlugStandingsIndexRoute
   '/_leagues/$leagueSlug/matches/$matchId/h2h': typeof LeaguesLeagueSlugMatchesMatchIdH2hRoute
   '/_leagues/$leagueSlug/matches/$matchId/lineups': typeof LeaguesLeagueSlugMatchesMatchIdLineupsRoute
   '/_leagues/$leagueSlug/matches/$matchId/stats': typeof LeaguesLeagueSlugMatchesMatchIdStatsRoute
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$leagueSlug/matches/$matchId'
     | '/$leagueSlug/matches/'
+    | '/$leagueSlug/standings/'
     | '/$leagueSlug/matches/$matchId/h2h'
     | '/$leagueSlug/matches/$matchId/lineups'
     | '/$leagueSlug/matches/$matchId/stats'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/$leagueSlug/matches'
+    | '/$leagueSlug/standings'
     | '/$leagueSlug/matches/$matchId/h2h'
     | '/$leagueSlug/matches/$matchId/lineups'
     | '/$leagueSlug/matches/$matchId/stats'
@@ -116,6 +128,7 @@ export interface FileRouteTypes {
     | '/_leagues/'
     | '/_leagues/$leagueSlug/matches/$matchId'
     | '/_leagues/$leagueSlug/matches/'
+    | '/_leagues/$leagueSlug/standings/'
     | '/_leagues/$leagueSlug/matches/$matchId/h2h'
     | '/_leagues/$leagueSlug/matches/$matchId/lineups'
     | '/_leagues/$leagueSlug/matches/$matchId/stats'
@@ -140,6 +153,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof LeaguesIndexRouteImport
+      parentRoute: typeof LeaguesRouteRoute
+    }
+    '/_leagues/$leagueSlug/standings/': {
+      id: '/_leagues/$leagueSlug/standings/'
+      path: '/$leagueSlug/standings'
+      fullPath: '/$leagueSlug/standings/'
+      preLoaderRoute: typeof LeaguesLeagueSlugStandingsIndexRouteImport
       parentRoute: typeof LeaguesRouteRoute
     }
     '/_leagues/$leagueSlug/matches/': {
@@ -215,6 +235,7 @@ interface LeaguesRouteRouteChildren {
   LeaguesIndexRoute: typeof LeaguesIndexRoute
   LeaguesLeagueSlugMatchesMatchIdRouteRoute: typeof LeaguesLeagueSlugMatchesMatchIdRouteRouteWithChildren
   LeaguesLeagueSlugMatchesIndexRoute: typeof LeaguesLeagueSlugMatchesIndexRoute
+  LeaguesLeagueSlugStandingsIndexRoute: typeof LeaguesLeagueSlugStandingsIndexRoute
 }
 
 const LeaguesRouteRouteChildren: LeaguesRouteRouteChildren = {
@@ -222,6 +243,7 @@ const LeaguesRouteRouteChildren: LeaguesRouteRouteChildren = {
   LeaguesLeagueSlugMatchesMatchIdRouteRoute:
     LeaguesLeagueSlugMatchesMatchIdRouteRouteWithChildren,
   LeaguesLeagueSlugMatchesIndexRoute: LeaguesLeagueSlugMatchesIndexRoute,
+  LeaguesLeagueSlugStandingsIndexRoute: LeaguesLeagueSlugStandingsIndexRoute,
 }
 
 const LeaguesRouteRouteWithChildren = LeaguesRouteRoute._addFileChildren(

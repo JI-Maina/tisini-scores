@@ -8,12 +8,21 @@ import { getFixtureLineupsFn } from '#/data/fixtures'
 export const Route = createFileRoute(
   '/_leagues/$leagueSlug/matches/$matchId/lineups',
 )({
-  loader: async ({ params }) => {
+  validateSearch: (search: Record<string, unknown>) => ({
+    season:
+      typeof search.season === 'string' && search.season.trim() !== ''
+        ? search.season
+        : undefined,
+  }),
+  loaderDeps: ({ search }) => ({
+    season: search.season,
+  }),
+  loader: async ({ params, deps }) => {
     const leagueId = leagueIdFromSlug(params.leagueSlug)
     const matchId = Number(params.matchId)
-    const seasonId = 123
+    const seasonId = Number(deps.season)
 
-    if (!leagueId || !matchId) {
+    if (!leagueId || !matchId || !seasonId) {
       throw notFound()
     }
 

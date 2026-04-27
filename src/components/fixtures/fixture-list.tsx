@@ -12,9 +12,11 @@ function parseScore(s: string) {
 export function FixturesList({
   data,
   leagueSlug,
+  seasonId,
 }: {
   data: Promise<Fixture[]>
   leagueSlug: string
+  seasonId: number
 }) {
   const fixtures = use(data)
 
@@ -75,6 +77,9 @@ export function FixturesList({
                           params: {
                             leagueSlug,
                             matchId: String(fixture.id),
+                          },
+                          search: {
+                            season: String(seasonId),
                           },
                         })
                       }}

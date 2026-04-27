@@ -27,6 +27,15 @@ export interface League {
   status: number
 }
 
+export interface Season {
+  id: number
+  name: string
+  status?: number
+  current?: number | boolean
+  date_from?: string
+  date_to?: string
+}
+
 export interface Highlight {
   id: number
   event_name: string
@@ -121,4 +130,25 @@ export interface H2HContext {
   away: FixtureH2H[]
   h2h: FixtureH2H[]
   logos: H2HLogo[]
+}
+
+export interface Standing {
+  id: number
+  team_name: string
+  logo: string
+  P: number
+  W: number
+  D: number
+  L: number
+  GF: number
+  GA: number
+  GD: number
+  Pts: number
+  live: string | null
+}
+
+export interface LeagueStandings {
+  standings: Standing[]
+  matches_played: number
+  season: number
 }

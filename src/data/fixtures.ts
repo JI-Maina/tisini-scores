@@ -14,7 +14,7 @@ type FixtureInput = {
 }
 
 export const getFixturesFn = createServerFn({ method: 'GET' })
-  .inputValidator((data: { leagueId: number }) => data)
+  .inputValidator((data: { leagueId: number; seasonId: number }) => data)
   .handler(async ({ data }) => {
     const leagueId = data.leagueId ?? 205
 
@@ -29,7 +29,7 @@ export const getFixturesFn = createServerFn({ method: 'GET' })
     }
 
     const res = await fetch(
-      `${apiUrl}/competitions/${leagueId}/seasons/123/fixtures`,
+      `${apiUrl}/competitions/${leagueId}/seasons/${data.seasonId}/fixtures`,
       {
         method: 'GET',
         headers,
