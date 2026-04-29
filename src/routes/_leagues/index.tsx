@@ -15,14 +15,15 @@ function Home() {
       className="flex min-h-[calc(100dvh-10rem)] w-full flex-col py-4"
       aria-label="Featured"
     >
-      <div>
+      <header className="border-border bg-card/70 flex flex-col gap-4 rounded-xl border p-4 sm:flex-row sm:items-end sm:justify-between">
         <h1 className="font-heading text-foreground text-3xl font-bold tracking-tight">
           Home
         </h1>
         <p className="text-muted-foreground mt-2 text-sm">
           Select a league to browse matches.
         </p>
-      </div>
+      </header>
+
       <div className="mt-6">
         <h2 className="font-heading text-foreground text-2xl font-bold tracking-tight">
           Leagues ({leagues.length})
@@ -35,6 +36,7 @@ function Home() {
                 <Link
                   to="/$leagueSlug/matches"
                   params={{ leagueSlug }}
+                  search={{ season: undefined }}
                   className="border-border bg-card hover:bg-muted/50 block rounded-lg border p-4 transition-colors"
                 >
                   <p className="font-semibold">{league.name}</p>

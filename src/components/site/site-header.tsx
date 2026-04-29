@@ -40,7 +40,9 @@ export default function SiteHeader({ data }: { data: League[] }) {
                 <Link
                   to="/$leagueSlug/matches"
                   params={{ leagueSlug: activeLeagueSlug }}
+                  search={{ season: undefined }}
                   className="text-lg font-semibold"
+                  preload="intent"
                 >
                   Matches
                 </Link>
@@ -49,9 +51,37 @@ export default function SiteHeader({ data }: { data: League[] }) {
             {activeLeagueSlug ? (
               <li>
                 <Link
+                  to="/$leagueSlug/stats"
+                  params={{ leagueSlug: activeLeagueSlug }}
+                  search={{ season: undefined }}
+                  className="text-lg font-semibold"
+                  preload="intent"
+                >
+                  Stats
+                </Link>
+              </li>
+            ) : null}
+            {activeLeagueSlug ? (
+              <li>
+                <Link
+                  to="/$leagueSlug/teams"
+                  params={{ leagueSlug: activeLeagueSlug }}
+                  search={{ season: undefined }}
+                  className="text-lg font-semibold"
+                  preload="intent"
+                >
+                  Teams
+                </Link>
+              </li>
+            ) : null}
+            {activeLeagueSlug ? (
+              <li>
+                <Link
                   to="/$leagueSlug/standings"
                   params={{ leagueSlug: activeLeagueSlug }}
+                  search={{ season: undefined }}
                   className="text-lg font-semibold"
+                  preload="intent"
                 >
                   Standings
                 </Link>

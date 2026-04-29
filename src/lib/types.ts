@@ -152,3 +152,46 @@ export interface LeagueStandings {
   matches_played: number
   season: number
 }
+
+export interface Team {
+  team_id: number
+  team_name: string
+  team_logo: string
+  games_played: number
+  year_founded: number | null
+  website_url: string | null
+  description: string
+}
+
+export interface TopTeam {
+  team_id: number
+  team_name: string
+  team_logo: string
+  total: number
+  sub_events: SubEvent[]
+}
+
+export interface TopPlayer {
+  player_id: number
+  name: string
+  passportphoto: string | null
+  team_player_id: string
+  nationality: string
+  team_id: number
+  team_name: string
+  team_logo: string | null
+  total: number
+  sub_events: SubEvent[]
+}
+
+export interface PaginatedResponse<T> {
+  total: number
+  page: number
+  page_size: number
+  total_pages: number
+  has_next: boolean
+  has_previous: boolean
+  next: string | null
+  previous: string | null
+  items: T[]
+}

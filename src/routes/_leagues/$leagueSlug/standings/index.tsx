@@ -49,7 +49,7 @@ function RouteComponent() {
 
   return (
     <section className="space-y-4 pb-10 pt-2">
-      <header className="flex items-end justify-between">
+      <header className="border-border bg-card/70 flex flex-col gap-4 rounded-xl border p-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="font-heading text-foreground text-3xl font-bold tracking-tight">
             Standings

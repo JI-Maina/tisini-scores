@@ -49,8 +49,8 @@ function RouteComponent() {
   const navigate = useNavigate()
 
   return (
-    <div className="pb-12 pt-2">
-      <div className="mb-6 flex items-end justify-between gap-3">
+    <section className="pb-12 pt-2 space-y-6">
+      <header className="border-border bg-card/70 flex flex-col gap-4 rounded-xl border p-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="font-heading text-foreground text-3xl font-bold tracking-tight">
             Matches
@@ -70,7 +70,8 @@ function RouteComponent() {
             })
           }}
         />
-      </div>
+      </header>
+
       <Suspense
         fallback={
           <div className="text-muted-foreground flex items-center gap-2 py-12 text-sm">
@@ -85,6 +86,6 @@ function RouteComponent() {
           seasonId={seasonId}
         />
       </Suspense>
-    </div>
+    </section>
   )
 }

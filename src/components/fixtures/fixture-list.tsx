@@ -38,10 +38,6 @@ export function FixturesList({
 
   return (
     <div className="space-y-8">
-      <p className="text-muted-foreground text-sm tabular-nums">
-        {fixtures.length} fixture{fixtures.length === 1 ? '' : 's'}
-      </p>
-
       {Object.keys(groupedFixtures).map((round) => {
         const roundFixtures = groupedFixtures[round]
         return (
