@@ -8,6 +8,7 @@ import {
   createFileRoute,
   Link,
   notFound,
+  redirect,
   useNavigate,
 } from '@tanstack/react-router'
 import { ChevronRightIcon, Loader2Icon } from 'lucide-react'
@@ -31,6 +32,14 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/teams/')({
 
     const seasons = await getSeasonsFn({ data: { leagueId } })
     const defaultSeasonId = pickDefaultSeasonId(seasons)
+    if (!deps.season && defaultSeasonId) {
+      throw redirect({
+        to: '/$leagueSlug/matches',
+        params: { leagueSlug: params.leagueSlug },
+        search: { season: String(defaultSeasonId) },
+        replace: true,
+      })
+    }
     const seasonId = deps.season ? Number(deps.season) : defaultSeasonId
     if (!seasonId) throw notFound()
 
@@ -120,11 +129,17 @@ function TeamCard({ team, leagueSlug }: { team: Team; leagueSlug: string }) {
       <div className="flex min-h-14 items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-3">
           <div className="border-border bg-background/90 flex size-11 shrink-0 items-center justify-center rounded-full border p-1.5">
-            <img
-              src={team.team_logo}
-              alt={team.team_name}
-              className="size-full rounded-full object-contain"
-            />
+            {team.team_logo ? (
+              <img
+                src={team.team_logo}
+                alt={team.team_name}
+                className="size-full rounded-full object-contain"
+              />
+            ) : (
+              <div className="bg-muted text-muted-foreground border-border grid size-6 place-items-center rounded-full border text-[10px] font-semibold">
+                {team.team_name.slice(0, 2).toUpperCase()}
+              </div>
+            )}
           </div>
           <h3 className="text-foreground truncate text-sm font-semibold sm:text-base">
             {team.team_name}

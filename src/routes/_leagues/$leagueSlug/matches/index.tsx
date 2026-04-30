@@ -1,6 +1,11 @@
 import { Suspense } from 'react'
 import { Loader2Icon } from 'lucide-react'
-import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router'
+import {
+  createFileRoute,
+  notFound,
+  redirect,
+  useNavigate,
+} from '@tanstack/react-router'
 
 import { getFixturesFn } from '#/data/fixtures'
 import { FixturesList } from '#/components/fixtures/fixture-list'
@@ -26,18 +31,26 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/matches/')({
     }
 
     const seasons = await getSeasonsFn({ data: { leagueId } })
-    const seasonId = pickDefaultSeasonId(seasons)
-    const selectedSeasonId = deps.season ? Number(deps.season) : seasonId
-    if (!selectedSeasonId) throw notFound()
+    const defaultSeasonId = pickDefaultSeasonId(seasons)
+    if (!deps.season && defaultSeasonId) {
+      throw redirect({
+        to: '/$leagueSlug/matches',
+        params: { leagueSlug: params.leagueSlug },
+        search: { season: String(defaultSeasonId) },
+        replace: true,
+      })
+    }
+    const seasonId = deps.season ? Number(deps.season) : defaultSeasonId
+    if (!seasonId) throw notFound()
 
     const fixturesPromise = getFixturesFn({
-      data: { leagueId, seasonId: selectedSeasonId },
+      data: { leagueId, seasonId },
     })
     return {
       fixturesPromise,
       leagueSlug: params.leagueSlug,
       seasons,
-      seasonId: selectedSeasonId,
+      seasonId,
     }
   },
   component: RouteComponent,

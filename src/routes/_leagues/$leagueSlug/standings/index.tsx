@@ -1,6 +1,11 @@
 import { Suspense, use } from 'react'
 import { Loader2Icon } from 'lucide-react'
-import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router'
+import {
+  createFileRoute,
+  notFound,
+  redirect,
+  useNavigate,
+} from '@tanstack/react-router'
 
 import { cn } from '#/lib/utils'
 import { getStandingsFn } from '#/data/standings'
@@ -28,10 +33,20 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/standings/')({
 
     const seasons = await getSeasonsFn({ data: { leagueId } })
     const defaultSeasonId = pickDefaultSeasonId(seasons)
+    if (!deps.season && defaultSeasonId) {
+      throw redirect({
+        to: '/$leagueSlug/matches',
+        params: { leagueSlug: params.leagueSlug },
+        search: { season: String(defaultSeasonId) },
+        replace: true,
+      })
+    }
     const seasonId = deps.season ? Number(deps.season) : defaultSeasonId
     if (!seasonId) throw notFound()
 
-    const standingsPromise = getStandingsFn({ data: { leagueId, seasonId } })
+    const standingsPromise = getStandingsFn({
+      data: { leagueId, seasonId },
+    })
     return {
       standingsPromise,
       seasons,
@@ -126,11 +141,18 @@ function StandingsTable({ data }: { data: Promise<LeagueStandings> }) {
             </span>
 
             <div className="flex min-w-0 items-center gap-2.5">
-              <img
-                src={team.logo}
-                alt={`${team.team_name} logo`}
-                className="border-border size-6 shrink-0 rounded-full border object-cover"
-              />
+              {team.logo ? (
+                <img
+                  src={team.logo}
+                  alt={`${team.team_name} logo`}
+                  className="border-border size-6 shrink-0 rounded-full border object-cover"
+                />
+              ) : (
+                <div className="bg-muted text-muted-foreground border-border grid size-6 place-items-center rounded-full border text-[10px] font-semibold">
+                  {team.team_name.slice(0, 2).toUpperCase()}
+                </div>
+              )}
+
               <span className="text-foreground truncate font-medium">
                 {team.team_name}
               </span>

@@ -93,7 +93,7 @@ export function FixturesList({
                             alt={`${fixture.team1_name} logo`}
                           />
                         ) : (
-                          <div className="bg-muted text-muted-foreground border-border grid size-7 place-items-center rounded-full border text-[10px] font-semibold">
+                          <div className="bg-muted text-muted-foreground border-border grid size-9 place-items-center rounded-full border text-[10px] font-semibold">
                             {fixture.team1_name.slice(0, 2).toUpperCase()}
                           </div>
                         )}
@@ -159,7 +159,7 @@ export function FixturesList({
                             alt={`${fixture.team2_name} logo`}
                           />
                         ) : (
-                          <div className="bg-muted text-muted-foreground border-border grid size-7 place-items-center rounded-full border text-[10px] font-semibold">
+                          <div className="bg-muted text-muted-foreground border-border grid size-9 place-items-center rounded-full border text-[10px] font-semibold">
                             {fixture.team2_name.slice(0, 2).toUpperCase()}
                           </div>
                         )}
