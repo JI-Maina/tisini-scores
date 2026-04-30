@@ -9,6 +9,46 @@ import { SeasonSelect } from '#/components/shared/season-select'
 import { PlayerStatsCard } from '#/components/stats/players-card'
 import { getSeasonsFn, pickDefaultSeasonId } from '#/data/leagues'
 
+type StatsLeagueConfig = {
+  team: readonly [
+    { title: string; eventId: number },
+    { title: string; eventId: number },
+    { title: string; eventId: number },
+  ]
+  player: readonly [
+    { title: string; eventId: number },
+    { title: string; eventId: number },
+    { title: string; eventId: number },
+  ]
+}
+
+const statsConfigByLeagueId: Record<number, StatsLeagueConfig> = {
+  205: {
+    team: [
+      { title: 'Most Goals', eventId: 19 },
+      { title: 'Most Interceptions', eventId: 28 },
+      { title: 'Most Tackles', eventId: 97 },
+    ],
+    player: [
+      { title: 'Top Scorers', eventId: 19 },
+      { title: 'Top Assists', eventId: 23 },
+      { title: 'Top Passes', eventId: 7 },
+    ],
+  },
+  238: {
+    team: [
+      { title: 'Penalties Conceded', eventId: 60 },
+      { title: 'Visits In Opp 22', eventId: 122 },
+      { title: 'Scrums', eventId: 63 },
+    ],
+    player: [
+      { title: 'Top Scores', eventId: 33 },
+      { title: 'Top Tackles', eventId: 56 },
+      { title: 'Top Carries', eventId: 58 },
+    ],
+  },
+}
+
 export const Route = createFileRoute('/_leagues/$leagueSlug/stats/')({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
@@ -29,29 +69,31 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/stats/')({
     const defaultSeasonId = pickDefaultSeasonId(seasons)
     const seasonId = deps.season ? Number(deps.season) : defaultSeasonId
     if (!seasonId) throw notFound()
+    const leagueStatsConfig = statsConfigByLeagueId[leagueId]
+    if (!leagueStatsConfig) throw notFound()
 
     const goalsStatsPromise = getTeamStatsFn({
-      data: { leagueId, seasonId, eventId: 19 },
+      data: { leagueId, seasonId, eventId: leagueStatsConfig.team[0].eventId },
     }).catch(() => [] as TopTeam[])
     const interceptionsStatsPromise = getTeamStatsFn({
-      data: { leagueId, seasonId, eventId: 28 },
+      data: { leagueId, seasonId, eventId: leagueStatsConfig.team[1].eventId },
     }).catch(() => [] as TopTeam[])
     const tacklesStatsPromise = getTeamStatsFn({
-      data: { leagueId, seasonId, eventId: 97 },
+      data: { leagueId, seasonId, eventId: leagueStatsConfig.team[2].eventId },
     }).catch(() => [] as TopTeam[])
 
     const topScorersPromise = getPlayerStatsFn({
-      data: { leagueId, seasonId, eventId: 19 },
+      data: { leagueId, seasonId, eventId: leagueStatsConfig.player[0].eventId },
     })
       .then((res) => res.items)
       .catch(() => [] as TopPlayer[])
     const topAssistsPromise = getPlayerStatsFn({
-      data: { leagueId, seasonId, eventId: 23 },
+      data: { leagueId, seasonId, eventId: leagueStatsConfig.player[1].eventId },
     })
       .then((res) => res.items)
       .catch(() => [] as TopPlayer[])
     const topPassesPromise = getPlayerStatsFn({
-      data: { leagueId, seasonId, eventId: 7 },
+      data: { leagueId, seasonId, eventId: leagueStatsConfig.player[2].eventId },
     })
       .then((res) => res.items)
       .catch(() => [] as TopPlayer[])
@@ -66,6 +108,7 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/stats/')({
       seasons,
       seasonId,
       leagueSlug: params.leagueSlug,
+      leagueStatsConfig,
     }
   },
   component: RouteComponent,
@@ -82,6 +125,7 @@ function RouteComponent() {
     seasons,
     seasonId,
     leagueSlug,
+    leagueStatsConfig,
   } = Route.useLoaderData()
   const navigate = useNavigate()
 
@@ -116,23 +160,23 @@ function RouteComponent() {
         <div className="grid gap-3 lg:grid-cols-3">
           <Suspense fallback={<StatsCardFallback title="Most Goals" />}>
             <TeamStatsCard
-              title="Most Goals"
+              title={leagueStatsConfig.team[0].title}
               teamsPromise={goalsStatsPromise}
               leagueSlug={leagueSlug}
               seasonId={seasonId}
             />
           </Suspense>
-          <Suspense fallback={<StatsCardFallback title="Most Interceptions" />}>
+          <Suspense fallback={<StatsCardFallback title={leagueStatsConfig.team[1].title} />}>
             <TeamStatsCard
-              title="Most Interceptions"
+              title={leagueStatsConfig.team[1].title}
               teamsPromise={interceptionsStatsPromise}
               leagueSlug={leagueSlug}
               seasonId={seasonId}
             />
           </Suspense>
-          <Suspense fallback={<StatsCardFallback title="Most Tackles" />}>
+          <Suspense fallback={<StatsCardFallback title={leagueStatsConfig.team[2].title} />}>
             <TeamStatsCard
-              title="Most Tackles"
+              title={leagueStatsConfig.team[2].title}
               teamsPromise={tacklesStatsPromise}
               leagueSlug={leagueSlug}
               seasonId={seasonId}
@@ -146,25 +190,25 @@ function RouteComponent() {
           Player Stats
         </h2>
         <div className="grid gap-3 lg:grid-cols-3">
-          <Suspense fallback={<StatsCardFallback title="Top Scorers" />}>
+          <Suspense fallback={<StatsCardFallback title={leagueStatsConfig.player[0].title} />}>
             <PlayerStatsCard
-              title="Top Scorers"
+              title={leagueStatsConfig.player[0].title}
               playersPromise={topScorersPromise}
               leagueSlug={leagueSlug}
               seasonId={seasonId}
             />
           </Suspense>
-          <Suspense fallback={<StatsCardFallback title="Top Assists" />}>
+          <Suspense fallback={<StatsCardFallback title={leagueStatsConfig.player[1].title} />}>
             <PlayerStatsCard
-              title="Top Assists"
+              title={leagueStatsConfig.player[1].title}
               playersPromise={topAssistsPromise}
               leagueSlug={leagueSlug}
               seasonId={seasonId}
             />
           </Suspense>
-          <Suspense fallback={<StatsCardFallback title="Top Passes" />}>
+          <Suspense fallback={<StatsCardFallback title={leagueStatsConfig.player[2].title} />}>
             <PlayerStatsCard
-              title="Top Passes"
+              title={leagueStatsConfig.player[2].title}
               playersPromise={topPassesPromise}
               leagueSlug={leagueSlug}
               seasonId={seasonId}

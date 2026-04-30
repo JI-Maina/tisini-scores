@@ -39,11 +39,18 @@ export function TeamStatsCard({
             <span className="text-muted-foreground w-5 text-xs font-semibold tabular-nums">
               {index + 1}
             </span>
-            <img
-              src={team.team_logo}
-              alt={`${team.team_name} logo`}
-              className="border-border size-7 rounded-full border object-cover"
-            />
+            {team.team_logo ? (
+              <img
+                src={team.team_logo}
+                alt={`${team.team_name} logo`}
+                className="border-border size-7 rounded-full border object-cover"
+              />
+            ) : (
+              <div className="bg-muted text-muted-foreground border-border grid size-7 place-items-center rounded-full border text-[10px] font-semibold">
+                {team.team_name.slice(0, 2).toUpperCase()}
+              </div>
+            )}
+
             <span className="text-sm font-medium truncate">
               {team.team_name}
             </span>
