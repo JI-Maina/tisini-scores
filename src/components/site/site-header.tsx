@@ -1,5 +1,5 @@
 import { SearchIcon } from 'lucide-react'
-import { Link } from '@tanstack/react-router'
+import { Link, useParams } from '@tanstack/react-router'
 
 import { tisiniLogo } from '#/assets'
 import type { League } from '#/lib/types'
@@ -13,7 +13,9 @@ const staticNavItems = [
 ]
 
 export default function SiteHeader({ data }: { data: League[] }) {
-  const activeLeagueSlug = data[0] ? leagueToSlug(data[0]) : null
+  const params = useParams({ strict: false })
+  const activeLeagueSlug =
+    params.leagueSlug ?? (data[0] ? leagueToSlug(data[0]) : null)
 
   return (
     <header className="py-2">

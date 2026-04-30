@@ -86,11 +86,17 @@ export function FixturesList({
                         <span className="text-foreground truncate text-sm font-medium sm:text-base">
                           {fixture.team1_name}
                         </span>
-                        <img
-                          className="border-border size-9 shrink-0 rounded-full border object-cover sm:size-10"
-                          src={fixture.team1_logo}
-                          alt=""
-                        />
+                        {fixture.team1_logo ? (
+                          <img
+                            className="border-border size-9 shrink-0 rounded-full border object-cover sm:size-10"
+                            src={fixture.team1_logo}
+                            alt={`${fixture.team1_name} logo`}
+                          />
+                        ) : (
+                          <div className="bg-muted text-muted-foreground border-border grid size-7 place-items-center rounded-full border text-[10px] font-semibold">
+                            {fixture.team1_name.slice(0, 2).toUpperCase()}
+                          </div>
+                        )}
                       </div>
 
                       {/* Score / time */}
@@ -146,11 +152,18 @@ export function FixturesList({
 
                       {/* Away */}
                       <div className="flex min-w-0 flex-1 items-center justify-start gap-2 sm:gap-3">
-                        <img
-                          className="border-border size-9 shrink-0 rounded-full border object-cover sm:size-10"
-                          src={fixture.team2_logo}
-                          alt=""
-                        />
+                        {fixture.team2_logo ? (
+                          <img
+                            className="border-border size-9 shrink-0 rounded-full border object-cover sm:size-10"
+                            src={fixture.team2_logo}
+                            alt={`${fixture.team2_name} logo`}
+                          />
+                        ) : (
+                          <div className="bg-muted text-muted-foreground border-border grid size-7 place-items-center rounded-full border text-[10px] font-semibold">
+                            {fixture.team2_name.slice(0, 2).toUpperCase()}
+                          </div>
+                        )}
+
                         <span className="text-foreground truncate text-sm font-medium sm:text-base">
                           {fixture.team2_name}
                         </span>
