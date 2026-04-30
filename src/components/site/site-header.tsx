@@ -1,5 +1,5 @@
 import { SearchIcon } from 'lucide-react'
-import { Link, useParams } from '@tanstack/react-router'
+import { Link, useParams, useSearch } from '@tanstack/react-router'
 
 import { tisiniLogo } from '#/assets'
 import type { League } from '#/lib/types'
@@ -14,8 +14,13 @@ const staticNavItems = [
 
 export default function SiteHeader({ data }: { data: League[] }) {
   const params = useParams({ strict: false })
+  const search = useSearch({ strict: false })
   const activeLeagueSlug =
     params.leagueSlug ?? (data[0] ? leagueToSlug(data[0]) : null)
+  const season =
+    typeof search.season === 'string' && search.season.trim() !== ''
+      ? search.season
+      : undefined
 
   return (
     <header className="py-2">
@@ -42,7 +47,7 @@ export default function SiteHeader({ data }: { data: League[] }) {
                 <Link
                   to="/$leagueSlug/matches"
                   params={{ leagueSlug: activeLeagueSlug }}
-                  search={{ season: undefined }}
+                  search={{ season }}
                   className="text-lg font-semibold"
                   preload="intent"
                 >
@@ -55,7 +60,7 @@ export default function SiteHeader({ data }: { data: League[] }) {
                 <Link
                   to="/$leagueSlug/stats"
                   params={{ leagueSlug: activeLeagueSlug }}
-                  search={{ season: undefined }}
+                  search={{ season }}
                   className="text-lg font-semibold"
                   preload="intent"
                 >
@@ -68,7 +73,7 @@ export default function SiteHeader({ data }: { data: League[] }) {
                 <Link
                   to="/$leagueSlug/teams"
                   params={{ leagueSlug: activeLeagueSlug }}
-                  search={{ season: undefined }}
+                  search={{ season }}
                   className="text-lg font-semibold"
                   preload="intent"
                 >
@@ -81,7 +86,7 @@ export default function SiteHeader({ data }: { data: League[] }) {
                 <Link
                   to="/$leagueSlug/standings"
                   params={{ leagueSlug: activeLeagueSlug }}
-                  search={{ season: undefined }}
+                  search={{ season }}
                   className="text-lg font-semibold"
                   preload="intent"
                 >
