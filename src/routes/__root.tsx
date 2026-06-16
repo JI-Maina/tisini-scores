@@ -3,9 +3,6 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import appCss from '../styles.css?url'
-import SiteFooter from '#/components/site/site-footer'
-import SiteHeader from '#/components/site/site-header'
-import { getLeaguesFn } from '#/data/leagues'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -30,10 +27,6 @@ export const Route = createRootRoute({
   }),
   shellComponent: RootDocument,
   errorComponent: RootError,
-  loader: async () => {
-    const leagues = await getLeaguesFn()
-    return { leagues }
-  },
 })
 
 function RootError({ error }: { error: Error }) {
@@ -46,20 +39,13 @@ function RootError({ error }: { error: Error }) {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const { leagues } = Route.useLoaderData()
-
   return (
     <html lang="en">
       <head>
         <HeadContent />
       </head>
       <body>
-        <main className="container mx-auto">
-          <SiteHeader data={leagues} />
-
-          <div className="min-h-screen">{children}</div>
-          <SiteFooter />
-        </main>
+        <main className="container mx-auto">{children}</main>
 
         <TanStackDevtools
           config={{

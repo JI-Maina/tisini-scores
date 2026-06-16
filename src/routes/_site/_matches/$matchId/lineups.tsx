@@ -7,7 +7,7 @@ import { leagueIdFromSlug } from '#/lib/league-slug'
 import { getFixtureLineupsFn } from '#/data/fixtures'
 
 export const Route = createFileRoute(
-  '/_matches/$matchId/lineups',
+  '/_site/_matches/$matchId/lineups',
 )({
   validateSearch: (search: Record<string, unknown>) => ({
     season:

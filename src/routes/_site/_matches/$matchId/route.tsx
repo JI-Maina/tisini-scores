@@ -3,7 +3,6 @@ import { Link, Outlet, createFileRoute, notFound } from '@tanstack/react-router'
 import FixtureHeader from '#/components/fixtures/fixture-header'
 import { getFixtureDetailsFn } from '#/data/fixtures'
 import { getSeasonsFn, pickDefaultSeasonId } from '#/data/leagues'
-import { leagueIdFromSlug } from '#/lib/league-slug'
 
 const tabs = [
   { label: 'Overview', to: '/$leagueSlug/matches/$matchId' as const },
@@ -12,7 +11,7 @@ const tabs = [
   { label: 'H2H', to: '/$leagueSlug/matches/$matchId/h2h' as const },
 ]
 
-export const Route = createFileRoute('/_matches/$matchId')({
+export const Route = createFileRoute('/_site/_matches/$matchId')({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
       typeof search.season === 'string' && search.season.trim() !== ''

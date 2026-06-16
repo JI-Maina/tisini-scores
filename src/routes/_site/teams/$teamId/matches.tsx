@@ -8,7 +8,7 @@ import { Loader2Icon } from 'lucide-react'
 import { Suspense } from 'react'
 
 export const Route = createFileRoute(
-  '/teams/$teamId/matches',
+  '/_site/teams/$teamId/matches',
 )({
   validateSearch: (search: Record<string, unknown>) => ({
     season:

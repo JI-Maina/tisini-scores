@@ -13,7 +13,7 @@ import type { LeagueStandings } from '#/lib/types'
 import { SeasonSelect } from '#/components/shared/season-select'
 import { getSeasonsFn, pickDefaultSeasonId } from '#/data/leagues'
 
-export const Route = createFileRoute('/standings/')({
+export const Route = createFileRoute('/_site/standings/')({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
       typeof search.season === 'string' && search.season.trim() !== ''

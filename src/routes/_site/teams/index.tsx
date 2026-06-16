@@ -13,7 +13,7 @@ import {
 import { ChevronRightIcon, Loader2Icon } from 'lucide-react'
 import { Suspense, use } from 'react'
 
-export const Route = createFileRoute('/teams/')({
+export const Route = createFileRoute('/_site/teams/')({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
       typeof search.season === 'string' && search.season.trim() !== ''
