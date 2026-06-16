@@ -9,145 +9,138 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SiteRouteRouteImport } from './routes/_site/route'
-import { Route as SiteIndexRouteImport } from './routes/_site/index'
-import { Route as SiteTeamsIndexRouteImport } from './routes/_site/teams/index'
-import { Route as SiteStatsIndexRouteImport } from './routes/_site/stats/index'
-import { Route as SiteStandingsIndexRouteImport } from './routes/_site/standings/index'
-import { Route as SiteTeamsTeamIdRouteRouteImport } from './routes/_site/teams/$teamId/route'
-import { Route as SiteMatchesMatchIdRouteRouteImport } from './routes/_site/_matches/$matchId/route'
-import { Route as SiteTeamsTeamIdIndexRouteImport } from './routes/_site/teams/$teamId/index'
-import { Route as SiteMatchesMatchIdIndexRouteImport } from './routes/_site/_matches/$matchId/index'
-import { Route as SiteTeamsTeamIdStatsRouteImport } from './routes/_site/teams/$teamId/stats'
-import { Route as SiteTeamsTeamIdSquadRouteImport } from './routes/_site/teams/$teamId/squad'
-import { Route as SiteTeamsTeamIdMatchesRouteImport } from './routes/_site/teams/$teamId/matches'
-import { Route as SiteMatchesMatchIdStatsRouteImport } from './routes/_site/_matches/$matchId/stats'
-import { Route as SiteMatchesMatchIdLineupsRouteImport } from './routes/_site/_matches/$matchId/lineups'
-import { Route as SiteMatchesMatchIdH2hRouteImport } from './routes/_site/_matches/$matchId/h2h'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as TeamsIndexRouteImport } from './routes/teams/index'
+import { Route as StatsIndexRouteImport } from './routes/stats/index'
+import { Route as StandingsIndexRouteImport } from './routes/standings/index'
+import { Route as TeamsTeamIdRouteRouteImport } from './routes/teams/$teamId/route'
+import { Route as MatchesMatchIdRouteRouteImport } from './routes/_matches/$matchId/route'
+import { Route as TeamsTeamIdIndexRouteImport } from './routes/teams/$teamId/index'
+import { Route as MatchesMatchIdIndexRouteImport } from './routes/_matches/$matchId/index'
+import { Route as TeamsTeamIdStatsRouteImport } from './routes/teams/$teamId/stats'
+import { Route as TeamsTeamIdSquadRouteImport } from './routes/teams/$teamId/squad'
+import { Route as TeamsTeamIdMatchesRouteImport } from './routes/teams/$teamId/matches'
+import { Route as MatchesMatchIdStatsRouteImport } from './routes/_matches/$matchId/stats'
+import { Route as MatchesMatchIdLineupsRouteImport } from './routes/_matches/$matchId/lineups'
+import { Route as MatchesMatchIdH2hRouteImport } from './routes/_matches/$matchId/h2h'
 
-const SiteRouteRoute = SiteRouteRouteImport.update({
-  id: '/_site',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SiteIndexRoute = SiteIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => SiteRouteRoute,
-} as any)
-const SiteTeamsIndexRoute = SiteTeamsIndexRouteImport.update({
+const TeamsIndexRoute = TeamsIndexRouteImport.update({
   id: '/teams/',
   path: '/teams/',
-  getParentRoute: () => SiteRouteRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const SiteStatsIndexRoute = SiteStatsIndexRouteImport.update({
+const StatsIndexRoute = StatsIndexRouteImport.update({
   id: '/stats/',
   path: '/stats/',
-  getParentRoute: () => SiteRouteRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const SiteStandingsIndexRoute = SiteStandingsIndexRouteImport.update({
+const StandingsIndexRoute = StandingsIndexRouteImport.update({
   id: '/standings/',
   path: '/standings/',
-  getParentRoute: () => SiteRouteRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const SiteTeamsTeamIdRouteRoute = SiteTeamsTeamIdRouteRouteImport.update({
+const TeamsTeamIdRouteRoute = TeamsTeamIdRouteRouteImport.update({
   id: '/teams/$teamId',
   path: '/teams/$teamId',
-  getParentRoute: () => SiteRouteRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const SiteMatchesMatchIdRouteRoute = SiteMatchesMatchIdRouteRouteImport.update({
+const MatchesMatchIdRouteRoute = MatchesMatchIdRouteRouteImport.update({
   id: '/_matches/$matchId',
   path: '/$matchId',
-  getParentRoute: () => SiteRouteRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const SiteTeamsTeamIdIndexRoute = SiteTeamsTeamIdIndexRouteImport.update({
+const TeamsTeamIdIndexRoute = TeamsTeamIdIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => SiteTeamsTeamIdRouteRoute,
+  getParentRoute: () => TeamsTeamIdRouteRoute,
 } as any)
-const SiteMatchesMatchIdIndexRoute = SiteMatchesMatchIdIndexRouteImport.update({
+const MatchesMatchIdIndexRoute = MatchesMatchIdIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => SiteMatchesMatchIdRouteRoute,
+  getParentRoute: () => MatchesMatchIdRouteRoute,
 } as any)
-const SiteTeamsTeamIdStatsRoute = SiteTeamsTeamIdStatsRouteImport.update({
+const TeamsTeamIdStatsRoute = TeamsTeamIdStatsRouteImport.update({
   id: '/stats',
   path: '/stats',
-  getParentRoute: () => SiteTeamsTeamIdRouteRoute,
+  getParentRoute: () => TeamsTeamIdRouteRoute,
 } as any)
-const SiteTeamsTeamIdSquadRoute = SiteTeamsTeamIdSquadRouteImport.update({
+const TeamsTeamIdSquadRoute = TeamsTeamIdSquadRouteImport.update({
   id: '/squad',
   path: '/squad',
-  getParentRoute: () => SiteTeamsTeamIdRouteRoute,
+  getParentRoute: () => TeamsTeamIdRouteRoute,
 } as any)
-const SiteTeamsTeamIdMatchesRoute = SiteTeamsTeamIdMatchesRouteImport.update({
+const TeamsTeamIdMatchesRoute = TeamsTeamIdMatchesRouteImport.update({
   id: '/matches',
   path: '/matches',
-  getParentRoute: () => SiteTeamsTeamIdRouteRoute,
+  getParentRoute: () => TeamsTeamIdRouteRoute,
 } as any)
-const SiteMatchesMatchIdStatsRoute = SiteMatchesMatchIdStatsRouteImport.update({
+const MatchesMatchIdStatsRoute = MatchesMatchIdStatsRouteImport.update({
   id: '/stats',
   path: '/stats',
-  getParentRoute: () => SiteMatchesMatchIdRouteRoute,
+  getParentRoute: () => MatchesMatchIdRouteRoute,
 } as any)
-const SiteMatchesMatchIdLineupsRoute =
-  SiteMatchesMatchIdLineupsRouteImport.update({
-    id: '/lineups',
-    path: '/lineups',
-    getParentRoute: () => SiteMatchesMatchIdRouteRoute,
-  } as any)
-const SiteMatchesMatchIdH2hRoute = SiteMatchesMatchIdH2hRouteImport.update({
+const MatchesMatchIdLineupsRoute = MatchesMatchIdLineupsRouteImport.update({
+  id: '/lineups',
+  path: '/lineups',
+  getParentRoute: () => MatchesMatchIdRouteRoute,
+} as any)
+const MatchesMatchIdH2hRoute = MatchesMatchIdH2hRouteImport.update({
   id: '/h2h',
   path: '/h2h',
-  getParentRoute: () => SiteMatchesMatchIdRouteRoute,
+  getParentRoute: () => MatchesMatchIdRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof SiteIndexRoute
-  '/$matchId': typeof SiteMatchesMatchIdRouteRouteWithChildren
-  '/teams/$teamId': typeof SiteTeamsTeamIdRouteRouteWithChildren
-  '/standings/': typeof SiteStandingsIndexRoute
-  '/stats/': typeof SiteStatsIndexRoute
-  '/teams/': typeof SiteTeamsIndexRoute
-  '/$matchId/h2h': typeof SiteMatchesMatchIdH2hRoute
-  '/$matchId/lineups': typeof SiteMatchesMatchIdLineupsRoute
-  '/$matchId/stats': typeof SiteMatchesMatchIdStatsRoute
-  '/teams/$teamId/matches': typeof SiteTeamsTeamIdMatchesRoute
-  '/teams/$teamId/squad': typeof SiteTeamsTeamIdSquadRoute
-  '/teams/$teamId/stats': typeof SiteTeamsTeamIdStatsRoute
-  '/$matchId/': typeof SiteMatchesMatchIdIndexRoute
-  '/teams/$teamId/': typeof SiteTeamsTeamIdIndexRoute
+  '/': typeof IndexRoute
+  '/$matchId': typeof MatchesMatchIdRouteRouteWithChildren
+  '/teams/$teamId': typeof TeamsTeamIdRouteRouteWithChildren
+  '/standings/': typeof StandingsIndexRoute
+  '/stats/': typeof StatsIndexRoute
+  '/teams/': typeof TeamsIndexRoute
+  '/$matchId/h2h': typeof MatchesMatchIdH2hRoute
+  '/$matchId/lineups': typeof MatchesMatchIdLineupsRoute
+  '/$matchId/stats': typeof MatchesMatchIdStatsRoute
+  '/teams/$teamId/matches': typeof TeamsTeamIdMatchesRoute
+  '/teams/$teamId/squad': typeof TeamsTeamIdSquadRoute
+  '/teams/$teamId/stats': typeof TeamsTeamIdStatsRoute
+  '/$matchId/': typeof MatchesMatchIdIndexRoute
+  '/teams/$teamId/': typeof TeamsTeamIdIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof SiteIndexRoute
-  '/standings': typeof SiteStandingsIndexRoute
-  '/stats': typeof SiteStatsIndexRoute
-  '/teams': typeof SiteTeamsIndexRoute
-  '/$matchId/h2h': typeof SiteMatchesMatchIdH2hRoute
-  '/$matchId/lineups': typeof SiteMatchesMatchIdLineupsRoute
-  '/$matchId/stats': typeof SiteMatchesMatchIdStatsRoute
-  '/teams/$teamId/matches': typeof SiteTeamsTeamIdMatchesRoute
-  '/teams/$teamId/squad': typeof SiteTeamsTeamIdSquadRoute
-  '/teams/$teamId/stats': typeof SiteTeamsTeamIdStatsRoute
-  '/$matchId': typeof SiteMatchesMatchIdIndexRoute
-  '/teams/$teamId': typeof SiteTeamsTeamIdIndexRoute
+  '/': typeof IndexRoute
+  '/standings': typeof StandingsIndexRoute
+  '/stats': typeof StatsIndexRoute
+  '/teams': typeof TeamsIndexRoute
+  '/$matchId/h2h': typeof MatchesMatchIdH2hRoute
+  '/$matchId/lineups': typeof MatchesMatchIdLineupsRoute
+  '/$matchId/stats': typeof MatchesMatchIdStatsRoute
+  '/teams/$teamId/matches': typeof TeamsTeamIdMatchesRoute
+  '/teams/$teamId/squad': typeof TeamsTeamIdSquadRoute
+  '/teams/$teamId/stats': typeof TeamsTeamIdStatsRoute
+  '/$matchId': typeof MatchesMatchIdIndexRoute
+  '/teams/$teamId': typeof TeamsTeamIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_site': typeof SiteRouteRouteWithChildren
-  '/_site/': typeof SiteIndexRoute
-  '/_site/_matches/$matchId': typeof SiteMatchesMatchIdRouteRouteWithChildren
-  '/_site/teams/$teamId': typeof SiteTeamsTeamIdRouteRouteWithChildren
-  '/_site/standings/': typeof SiteStandingsIndexRoute
-  '/_site/stats/': typeof SiteStatsIndexRoute
-  '/_site/teams/': typeof SiteTeamsIndexRoute
-  '/_site/_matches/$matchId/h2h': typeof SiteMatchesMatchIdH2hRoute
-  '/_site/_matches/$matchId/lineups': typeof SiteMatchesMatchIdLineupsRoute
-  '/_site/_matches/$matchId/stats': typeof SiteMatchesMatchIdStatsRoute
-  '/_site/teams/$teamId/matches': typeof SiteTeamsTeamIdMatchesRoute
-  '/_site/teams/$teamId/squad': typeof SiteTeamsTeamIdSquadRoute
-  '/_site/teams/$teamId/stats': typeof SiteTeamsTeamIdStatsRoute
-  '/_site/_matches/$matchId/': typeof SiteMatchesMatchIdIndexRoute
-  '/_site/teams/$teamId/': typeof SiteTeamsTeamIdIndexRoute
+  '/': typeof IndexRoute
+  '/_matches/$matchId': typeof MatchesMatchIdRouteRouteWithChildren
+  '/teams/$teamId': typeof TeamsTeamIdRouteRouteWithChildren
+  '/standings/': typeof StandingsIndexRoute
+  '/stats/': typeof StatsIndexRoute
+  '/teams/': typeof TeamsIndexRoute
+  '/_matches/$matchId/h2h': typeof MatchesMatchIdH2hRoute
+  '/_matches/$matchId/lineups': typeof MatchesMatchIdLineupsRoute
+  '/_matches/$matchId/stats': typeof MatchesMatchIdStatsRoute
+  '/teams/$teamId/matches': typeof TeamsTeamIdMatchesRoute
+  '/teams/$teamId/squad': typeof TeamsTeamIdSquadRoute
+  '/teams/$teamId/stats': typeof TeamsTeamIdStatsRoute
+  '/_matches/$matchId/': typeof MatchesMatchIdIndexRoute
+  '/teams/$teamId/': typeof TeamsTeamIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -182,198 +175,175 @@ export interface FileRouteTypes {
     | '/teams/$teamId'
   id:
     | '__root__'
-    | '/_site'
-    | '/_site/'
-    | '/_site/_matches/$matchId'
-    | '/_site/teams/$teamId'
-    | '/_site/standings/'
-    | '/_site/stats/'
-    | '/_site/teams/'
-    | '/_site/_matches/$matchId/h2h'
-    | '/_site/_matches/$matchId/lineups'
-    | '/_site/_matches/$matchId/stats'
-    | '/_site/teams/$teamId/matches'
-    | '/_site/teams/$teamId/squad'
-    | '/_site/teams/$teamId/stats'
-    | '/_site/_matches/$matchId/'
-    | '/_site/teams/$teamId/'
+    | '/'
+    | '/_matches/$matchId'
+    | '/teams/$teamId'
+    | '/standings/'
+    | '/stats/'
+    | '/teams/'
+    | '/_matches/$matchId/h2h'
+    | '/_matches/$matchId/lineups'
+    | '/_matches/$matchId/stats'
+    | '/teams/$teamId/matches'
+    | '/teams/$teamId/squad'
+    | '/teams/$teamId/stats'
+    | '/_matches/$matchId/'
+    | '/teams/$teamId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  SiteRouteRoute: typeof SiteRouteRouteWithChildren
+  IndexRoute: typeof IndexRoute
+  MatchesMatchIdRouteRoute: typeof MatchesMatchIdRouteRouteWithChildren
+  TeamsTeamIdRouteRoute: typeof TeamsTeamIdRouteRouteWithChildren
+  StandingsIndexRoute: typeof StandingsIndexRoute
+  StatsIndexRoute: typeof StatsIndexRoute
+  TeamsIndexRoute: typeof TeamsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_site': {
-      id: '/_site'
-      path: ''
+    '/': {
+      id: '/'
+      path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof SiteRouteRouteImport
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_site/': {
-      id: '/_site/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof SiteIndexRouteImport
-      parentRoute: typeof SiteRouteRoute
-    }
-    '/_site/teams/': {
-      id: '/_site/teams/'
+    '/teams/': {
+      id: '/teams/'
       path: '/teams'
       fullPath: '/teams/'
-      preLoaderRoute: typeof SiteTeamsIndexRouteImport
-      parentRoute: typeof SiteRouteRoute
+      preLoaderRoute: typeof TeamsIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_site/stats/': {
-      id: '/_site/stats/'
+    '/stats/': {
+      id: '/stats/'
       path: '/stats'
       fullPath: '/stats/'
-      preLoaderRoute: typeof SiteStatsIndexRouteImport
-      parentRoute: typeof SiteRouteRoute
+      preLoaderRoute: typeof StatsIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_site/standings/': {
-      id: '/_site/standings/'
+    '/standings/': {
+      id: '/standings/'
       path: '/standings'
       fullPath: '/standings/'
-      preLoaderRoute: typeof SiteStandingsIndexRouteImport
-      parentRoute: typeof SiteRouteRoute
+      preLoaderRoute: typeof StandingsIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_site/teams/$teamId': {
-      id: '/_site/teams/$teamId'
+    '/teams/$teamId': {
+      id: '/teams/$teamId'
       path: '/teams/$teamId'
       fullPath: '/teams/$teamId'
-      preLoaderRoute: typeof SiteTeamsTeamIdRouteRouteImport
-      parentRoute: typeof SiteRouteRoute
+      preLoaderRoute: typeof TeamsTeamIdRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_site/_matches/$matchId': {
-      id: '/_site/_matches/$matchId'
+    '/_matches/$matchId': {
+      id: '/_matches/$matchId'
       path: '/$matchId'
       fullPath: '/$matchId'
-      preLoaderRoute: typeof SiteMatchesMatchIdRouteRouteImport
-      parentRoute: typeof SiteRouteRoute
+      preLoaderRoute: typeof MatchesMatchIdRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_site/teams/$teamId/': {
-      id: '/_site/teams/$teamId/'
+    '/teams/$teamId/': {
+      id: '/teams/$teamId/'
       path: '/'
       fullPath: '/teams/$teamId/'
-      preLoaderRoute: typeof SiteTeamsTeamIdIndexRouteImport
-      parentRoute: typeof SiteTeamsTeamIdRouteRoute
+      preLoaderRoute: typeof TeamsTeamIdIndexRouteImport
+      parentRoute: typeof TeamsTeamIdRouteRoute
     }
-    '/_site/_matches/$matchId/': {
-      id: '/_site/_matches/$matchId/'
+    '/_matches/$matchId/': {
+      id: '/_matches/$matchId/'
       path: '/'
       fullPath: '/$matchId/'
-      preLoaderRoute: typeof SiteMatchesMatchIdIndexRouteImport
-      parentRoute: typeof SiteMatchesMatchIdRouteRoute
+      preLoaderRoute: typeof MatchesMatchIdIndexRouteImport
+      parentRoute: typeof MatchesMatchIdRouteRoute
     }
-    '/_site/teams/$teamId/stats': {
-      id: '/_site/teams/$teamId/stats'
+    '/teams/$teamId/stats': {
+      id: '/teams/$teamId/stats'
       path: '/stats'
       fullPath: '/teams/$teamId/stats'
-      preLoaderRoute: typeof SiteTeamsTeamIdStatsRouteImport
-      parentRoute: typeof SiteTeamsTeamIdRouteRoute
+      preLoaderRoute: typeof TeamsTeamIdStatsRouteImport
+      parentRoute: typeof TeamsTeamIdRouteRoute
     }
-    '/_site/teams/$teamId/squad': {
-      id: '/_site/teams/$teamId/squad'
+    '/teams/$teamId/squad': {
+      id: '/teams/$teamId/squad'
       path: '/squad'
       fullPath: '/teams/$teamId/squad'
-      preLoaderRoute: typeof SiteTeamsTeamIdSquadRouteImport
-      parentRoute: typeof SiteTeamsTeamIdRouteRoute
+      preLoaderRoute: typeof TeamsTeamIdSquadRouteImport
+      parentRoute: typeof TeamsTeamIdRouteRoute
     }
-    '/_site/teams/$teamId/matches': {
-      id: '/_site/teams/$teamId/matches'
+    '/teams/$teamId/matches': {
+      id: '/teams/$teamId/matches'
       path: '/matches'
       fullPath: '/teams/$teamId/matches'
-      preLoaderRoute: typeof SiteTeamsTeamIdMatchesRouteImport
-      parentRoute: typeof SiteTeamsTeamIdRouteRoute
+      preLoaderRoute: typeof TeamsTeamIdMatchesRouteImport
+      parentRoute: typeof TeamsTeamIdRouteRoute
     }
-    '/_site/_matches/$matchId/stats': {
-      id: '/_site/_matches/$matchId/stats'
+    '/_matches/$matchId/stats': {
+      id: '/_matches/$matchId/stats'
       path: '/stats'
       fullPath: '/$matchId/stats'
-      preLoaderRoute: typeof SiteMatchesMatchIdStatsRouteImport
-      parentRoute: typeof SiteMatchesMatchIdRouteRoute
+      preLoaderRoute: typeof MatchesMatchIdStatsRouteImport
+      parentRoute: typeof MatchesMatchIdRouteRoute
     }
-    '/_site/_matches/$matchId/lineups': {
-      id: '/_site/_matches/$matchId/lineups'
+    '/_matches/$matchId/lineups': {
+      id: '/_matches/$matchId/lineups'
       path: '/lineups'
       fullPath: '/$matchId/lineups'
-      preLoaderRoute: typeof SiteMatchesMatchIdLineupsRouteImport
-      parentRoute: typeof SiteMatchesMatchIdRouteRoute
+      preLoaderRoute: typeof MatchesMatchIdLineupsRouteImport
+      parentRoute: typeof MatchesMatchIdRouteRoute
     }
-    '/_site/_matches/$matchId/h2h': {
-      id: '/_site/_matches/$matchId/h2h'
+    '/_matches/$matchId/h2h': {
+      id: '/_matches/$matchId/h2h'
       path: '/h2h'
       fullPath: '/$matchId/h2h'
-      preLoaderRoute: typeof SiteMatchesMatchIdH2hRouteImport
-      parentRoute: typeof SiteMatchesMatchIdRouteRoute
+      preLoaderRoute: typeof MatchesMatchIdH2hRouteImport
+      parentRoute: typeof MatchesMatchIdRouteRoute
     }
   }
 }
 
-interface SiteMatchesMatchIdRouteRouteChildren {
-  SiteMatchesMatchIdH2hRoute: typeof SiteMatchesMatchIdH2hRoute
-  SiteMatchesMatchIdLineupsRoute: typeof SiteMatchesMatchIdLineupsRoute
-  SiteMatchesMatchIdStatsRoute: typeof SiteMatchesMatchIdStatsRoute
-  SiteMatchesMatchIdIndexRoute: typeof SiteMatchesMatchIdIndexRoute
+interface MatchesMatchIdRouteRouteChildren {
+  MatchesMatchIdH2hRoute: typeof MatchesMatchIdH2hRoute
+  MatchesMatchIdLineupsRoute: typeof MatchesMatchIdLineupsRoute
+  MatchesMatchIdStatsRoute: typeof MatchesMatchIdStatsRoute
+  MatchesMatchIdIndexRoute: typeof MatchesMatchIdIndexRoute
 }
 
-const SiteMatchesMatchIdRouteRouteChildren: SiteMatchesMatchIdRouteRouteChildren =
-  {
-    SiteMatchesMatchIdH2hRoute: SiteMatchesMatchIdH2hRoute,
-    SiteMatchesMatchIdLineupsRoute: SiteMatchesMatchIdLineupsRoute,
-    SiteMatchesMatchIdStatsRoute: SiteMatchesMatchIdStatsRoute,
-    SiteMatchesMatchIdIndexRoute: SiteMatchesMatchIdIndexRoute,
-  }
-
-const SiteMatchesMatchIdRouteRouteWithChildren =
-  SiteMatchesMatchIdRouteRoute._addFileChildren(
-    SiteMatchesMatchIdRouteRouteChildren,
-  )
-
-interface SiteTeamsTeamIdRouteRouteChildren {
-  SiteTeamsTeamIdMatchesRoute: typeof SiteTeamsTeamIdMatchesRoute
-  SiteTeamsTeamIdSquadRoute: typeof SiteTeamsTeamIdSquadRoute
-  SiteTeamsTeamIdStatsRoute: typeof SiteTeamsTeamIdStatsRoute
-  SiteTeamsTeamIdIndexRoute: typeof SiteTeamsTeamIdIndexRoute
+const MatchesMatchIdRouteRouteChildren: MatchesMatchIdRouteRouteChildren = {
+  MatchesMatchIdH2hRoute: MatchesMatchIdH2hRoute,
+  MatchesMatchIdLineupsRoute: MatchesMatchIdLineupsRoute,
+  MatchesMatchIdStatsRoute: MatchesMatchIdStatsRoute,
+  MatchesMatchIdIndexRoute: MatchesMatchIdIndexRoute,
 }
 
-const SiteTeamsTeamIdRouteRouteChildren: SiteTeamsTeamIdRouteRouteChildren = {
-  SiteTeamsTeamIdMatchesRoute: SiteTeamsTeamIdMatchesRoute,
-  SiteTeamsTeamIdSquadRoute: SiteTeamsTeamIdSquadRoute,
-  SiteTeamsTeamIdStatsRoute: SiteTeamsTeamIdStatsRoute,
-  SiteTeamsTeamIdIndexRoute: SiteTeamsTeamIdIndexRoute,
+const MatchesMatchIdRouteRouteWithChildren =
+  MatchesMatchIdRouteRoute._addFileChildren(MatchesMatchIdRouteRouteChildren)
+
+interface TeamsTeamIdRouteRouteChildren {
+  TeamsTeamIdMatchesRoute: typeof TeamsTeamIdMatchesRoute
+  TeamsTeamIdSquadRoute: typeof TeamsTeamIdSquadRoute
+  TeamsTeamIdStatsRoute: typeof TeamsTeamIdStatsRoute
+  TeamsTeamIdIndexRoute: typeof TeamsTeamIdIndexRoute
 }
 
-const SiteTeamsTeamIdRouteRouteWithChildren =
-  SiteTeamsTeamIdRouteRoute._addFileChildren(SiteTeamsTeamIdRouteRouteChildren)
-
-interface SiteRouteRouteChildren {
-  SiteIndexRoute: typeof SiteIndexRoute
-  SiteMatchesMatchIdRouteRoute: typeof SiteMatchesMatchIdRouteRouteWithChildren
-  SiteTeamsTeamIdRouteRoute: typeof SiteTeamsTeamIdRouteRouteWithChildren
-  SiteStandingsIndexRoute: typeof SiteStandingsIndexRoute
-  SiteStatsIndexRoute: typeof SiteStatsIndexRoute
-  SiteTeamsIndexRoute: typeof SiteTeamsIndexRoute
+const TeamsTeamIdRouteRouteChildren: TeamsTeamIdRouteRouteChildren = {
+  TeamsTeamIdMatchesRoute: TeamsTeamIdMatchesRoute,
+  TeamsTeamIdSquadRoute: TeamsTeamIdSquadRoute,
+  TeamsTeamIdStatsRoute: TeamsTeamIdStatsRoute,
+  TeamsTeamIdIndexRoute: TeamsTeamIdIndexRoute,
 }
 
-const SiteRouteRouteChildren: SiteRouteRouteChildren = {
-  SiteIndexRoute: SiteIndexRoute,
-  SiteMatchesMatchIdRouteRoute: SiteMatchesMatchIdRouteRouteWithChildren,
-  SiteTeamsTeamIdRouteRoute: SiteTeamsTeamIdRouteRouteWithChildren,
-  SiteStandingsIndexRoute: SiteStandingsIndexRoute,
-  SiteStatsIndexRoute: SiteStatsIndexRoute,
-  SiteTeamsIndexRoute: SiteTeamsIndexRoute,
-}
-
-const SiteRouteRouteWithChildren = SiteRouteRoute._addFileChildren(
-  SiteRouteRouteChildren,
-)
+const TeamsTeamIdRouteRouteWithChildren =
+  TeamsTeamIdRouteRoute._addFileChildren(TeamsTeamIdRouteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  SiteRouteRoute: SiteRouteRouteWithChildren,
+  IndexRoute: IndexRoute,
+  MatchesMatchIdRouteRoute: MatchesMatchIdRouteRouteWithChildren,
+  TeamsTeamIdRouteRoute: TeamsTeamIdRouteRouteWithChildren,
+  StandingsIndexRoute: StandingsIndexRoute,
+  StatsIndexRoute: StatsIndexRoute,
+  TeamsIndexRoute: TeamsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

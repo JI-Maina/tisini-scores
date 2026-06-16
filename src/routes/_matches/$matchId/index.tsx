@@ -12,7 +12,7 @@ import { cn } from '#/lib/utils'
 import type { Highlight } from '#/lib/types'
 import { Route as MatchLayoutRoute } from './route'
 
-export const Route = createFileRoute('/_site/_matches/$matchId/')(
+export const Route = createFileRoute('/_matches/$matchId/')(
   {
     component: RouteComponent,
   },

@@ -13,7 +13,7 @@ const tabs = [
   { label: 'Stats', to: '/$leagueSlug/teams/$teamId/stats' as const },
 ]
 
-export const Route = createFileRoute('/_site/teams/$teamId')({
+export const Route = createFileRoute('/teams/$teamId')({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
       typeof search.season === 'string' && search.season.trim() !== ''

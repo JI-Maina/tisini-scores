@@ -9,7 +9,7 @@ import { UsersIcon } from 'lucide-react'
 import { Suspense, use } from 'react'
 
 export const Route = createFileRoute(
-  '/_site/teams/$teamId/squad',
+  '/teams/$teamId/squad',
 )({
   validateSearch: (search: Record<string, unknown>) => ({
     season:

@@ -11,7 +11,7 @@ const tabs = [
   { label: 'H2H', to: '/$leagueSlug/matches/$matchId/h2h' as const },
 ]
 
-export const Route = createFileRoute('/_site/_matches/$matchId')({
+export const Route = createFileRoute('/_matches/$matchId')({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
       typeof search.season === 'string' && search.season.trim() !== ''

@@ -48,7 +48,7 @@ const statsConfigByLeagueId: Record<number, StatsLeagueConfig> = {
   },
 }
 
-export const Route = createFileRoute('/_site/stats/')({
+export const Route = createFileRoute('/stats/')({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
       typeof search.season === 'string' && search.season.trim() !== ''

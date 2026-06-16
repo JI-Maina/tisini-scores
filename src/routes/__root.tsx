@@ -3,6 +3,8 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import appCss from '../styles.css?url'
+import SiteFooter from '#/components/site/site-footer'
+import SiteHeader from '#/components/site/site-header'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -45,7 +47,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <main className="container mx-auto">{children}</main>
+        <main className="container mx-auto">
+          <SiteHeader />
+
+          <div className="min-h-screen">{children}</div>
+          <SiteFooter />
+        </main>
 
         <TanStackDevtools
           config={{

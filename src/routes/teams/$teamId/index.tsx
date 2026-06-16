@@ -10,7 +10,7 @@ import { getSeasonsFn, pickDefaultSeasonId } from '#/data/leagues'
 import { FixtureSnippet } from '#/components/fixtures/fixture-snippet'
 import { getRecentFixtureFn, getUpcomingFixtureFn } from '#/data/teams'
 
-export const Route = createFileRoute('/_site/teams/$teamId/')({
+export const Route = createFileRoute('/teams/$teamId/')({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
       typeof search.season === 'string' && search.season.trim() !== ''

@@ -12,7 +12,7 @@ import { SeasonSelect } from '#/components/shared/season-select'
 import { FixturesList } from '#/components/fixtures/fixture-list'
 import { getSeasonsFn, pickDefaultSeasonId } from '#/data/leagues'
 
-export const Route = createFileRoute('/_site/')({
+export const Route = createFileRoute('/')({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
       typeof search.season === 'string' && search.season.trim() !== ''
