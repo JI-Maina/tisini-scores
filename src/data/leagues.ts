@@ -51,13 +51,27 @@ export const getSeasonsFn = createServerFn({ method: 'GET' })
       method: 'GET',
       headers,
     })
-    console.log(res)
+
     if (!res.ok) {
       console.log('error')
     }
 
     return (await res.json()) as Season[]
   })
+
+export function resolveSeasonId(
+  searchSeason: string | undefined,
+  seasons: unknown,
+): number | null {
+  if (!Array.isArray(seasons) || seasons.length === 0) return null
+
+  if (searchSeason) {
+    const parsed = Number(searchSeason)
+    if (Number.isFinite(parsed) && parsed > 0) return parsed
+  }
+
+  return pickDefaultSeasonId(seasons as Season[])
+}
 
 export function pickDefaultSeasonId(seasons: Season[]): number | null {
   if (!seasons.length) return null

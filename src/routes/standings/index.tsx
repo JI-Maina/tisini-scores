@@ -3,7 +3,6 @@ import { Loader2Icon } from 'lucide-react'
 import {
   createFileRoute,
   notFound,
-  redirect,
   useNavigate,
 } from '@tanstack/react-router'
 
@@ -11,7 +10,8 @@ import { cn } from '#/lib/utils'
 import { getStandingsFn } from '#/data/standings'
 import type { LeagueStandings } from '#/lib/types'
 import { SeasonSelect } from '#/components/shared/season-select'
-import { getSeasonsFn, pickDefaultSeasonId } from '#/data/leagues'
+import { getSeasonsFn, resolveSeasonId } from '#/data/leagues'
+import { useSyncDefaultSeason } from '#/lib/use-sync-default-season'
 
 export const Route = createFileRoute('/standings/')({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -27,15 +27,7 @@ export const Route = createFileRoute('/standings/')({
     const leagueId = 238
 
     const seasons = await getSeasonsFn({ data: { leagueId } })
-    const defaultSeasonId = pickDefaultSeasonId(seasons)
-    if (!deps.season && defaultSeasonId) {
-      throw redirect({
-        to: '/',
-        search: { season: String(defaultSeasonId) },
-        replace: true,
-      })
-    }
-    const seasonId = deps.season ? Number(deps.season) : defaultSeasonId
+    const seasonId = resolveSeasonId(deps.season, seasons)
     if (!seasonId) throw notFound()
 
     const standingsPromise = getStandingsFn({
@@ -52,6 +44,7 @@ export const Route = createFileRoute('/standings/')({
 
 function RouteComponent() {
   const { standingsPromise, seasons, seasonId } = Route.useLoaderData()
+  useSyncDefaultSeason(seasonId)
   const navigate = useNavigate()
 
   return (

@@ -1,17 +1,18 @@
-import { SeasonSelect } from '#/components/shared/season-select'
-import { getSeasonsFn, pickDefaultSeasonId } from '#/data/leagues'
-import { getTeamsFn } from '#/data/teams'
-import type { Team } from '#/lib/types'
-import { slugify } from '#/lib/utils'
 import {
   createFileRoute,
   Link,
   notFound,
-  redirect,
   useNavigate,
 } from '@tanstack/react-router'
 import { ChevronRightIcon, Loader2Icon } from 'lucide-react'
 import { Suspense, use } from 'react'
+
+import { SeasonSelect } from '#/components/shared/season-select'
+import { getSeasonsFn, resolveSeasonId } from '#/data/leagues'
+import { getTeamsFn } from '#/data/teams'
+import { useSyncDefaultSeason } from '#/lib/use-sync-default-season'
+import type { Team } from '#/lib/types'
+import { slugify } from '#/lib/utils'
 
 export const Route = createFileRoute('/teams/')({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -27,15 +28,7 @@ export const Route = createFileRoute('/teams/')({
     const leagueId = 238
 
     const seasons = await getSeasonsFn({ data: { leagueId } })
-    const defaultSeasonId = pickDefaultSeasonId(seasons)
-    if (!deps.season && defaultSeasonId) {
-      throw redirect({
-        to: '/',
-        search: { season: String(defaultSeasonId) },
-        replace: true,
-      })
-    }
-    const seasonId = deps.season ? Number(deps.season) : defaultSeasonId
+    const seasonId = resolveSeasonId(deps.season, seasons)
     if (!seasonId) throw notFound()
 
     const teamsPromise = getTeamsFn({ data: { leagueId, seasonId } })
@@ -46,6 +39,7 @@ export const Route = createFileRoute('/teams/')({
 
 function RouteComponent() {
   const { teamsPromise, seasons, seasonId } = Route.useLoaderData()
+  useSyncDefaultSeason(seasonId)
 
   const navigate = useNavigate()
 

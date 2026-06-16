@@ -3,14 +3,14 @@ import { Loader2Icon } from 'lucide-react'
 import {
   createFileRoute,
   notFound,
-  redirect,
   useNavigate,
 } from '@tanstack/react-router'
 
 import { getFixturesFn } from '#/data/fixtures'
 import { SeasonSelect } from '#/components/shared/season-select'
 import { FixturesList } from '#/components/fixtures/fixture-list'
-import { getSeasonsFn, pickDefaultSeasonId } from '#/data/leagues'
+import { getSeasonsFn, resolveSeasonId } from '#/data/leagues'
+import { useSyncDefaultSeason } from '#/lib/use-sync-default-season'
 
 export const Route = createFileRoute('/')({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -25,16 +25,7 @@ export const Route = createFileRoute('/')({
   loader: async ({ deps }) => {
     const leagueId = 238
     const seasons = await getSeasonsFn({ data: { leagueId } })
-    const defaultSeasonId = pickDefaultSeasonId(seasons)
-
-    if (!deps.season && defaultSeasonId) {
-      throw redirect({
-        to: '/',
-        search: { season: String(defaultSeasonId) },
-        replace: true,
-      })
-    }
-    const seasonId = deps.season ? Number(deps.season) : defaultSeasonId
+    const seasonId = resolveSeasonId(deps.season, seasons)
     if (!seasonId) throw notFound()
 
     const fixturesPromise = getFixturesFn({
@@ -48,7 +39,7 @@ export const Route = createFileRoute('/')({
 
 function Home() {
   const { fixturesPromise, seasons, seasonId } = Route.useLoaderData()
-  console.log(seasonId)
+  useSyncDefaultSeason(seasonId)
   const navigate = useNavigate()
 
   return (
