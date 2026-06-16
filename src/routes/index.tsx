@@ -48,7 +48,7 @@ export const Route = createFileRoute('/')({
 
 function Home() {
   const { fixturesPromise, seasons, seasonId } = Route.useLoaderData()
-
+  console.log(seasonId)
   const navigate = useNavigate()
 
   return (

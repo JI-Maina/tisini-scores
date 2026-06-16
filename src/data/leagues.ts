@@ -51,7 +51,7 @@ export const getSeasonsFn = createServerFn({ method: 'GET' })
       method: 'GET',
       headers,
     })
-
+    console.log(res)
     if (!res.ok) {
       console.log('error')
     }
