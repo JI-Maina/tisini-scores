@@ -2,7 +2,6 @@ import { SearchIcon } from 'lucide-react'
 import { Link, useSearch } from '@tanstack/react-router'
 
 import { tisiniLogo } from '#/assets'
-import type { League } from '#/lib/types'
 
 const staticNavItems = [
   {
@@ -11,7 +10,7 @@ const staticNavItems = [
   },
 ]
 
-export default function SiteHeader({ data }: { data: League[] }) {
+export default function SiteHeader() {
   const search = useSearch({ strict: false })
 
   const season =
@@ -22,7 +21,7 @@ export default function SiteHeader({ data }: { data: League[] }) {
   return (
     <header className="py-2">
       <div className="flex items-center justify-between rounded-2xl border border-border/70 bg-card/75 px-4 shadow-sm backdrop-blur-md">
-        <Link to="/">
+        <Link to="/" search={{ season }}>
           <img
             src={tisiniLogo}
             alt="Tisini Logo"

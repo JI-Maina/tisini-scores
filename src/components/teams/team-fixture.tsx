@@ -23,10 +23,10 @@ export function TeamFixturesList({
   const navigate = useNavigate()
 
   const groupedFixtures = useMemo((): Record<string, TeamFixtures[]> => {
-    const grouped: Record<string, TeamFixtures[]> = {}
+    const grouped: Record<string, Fixture[]> = {}
 
     for (const fixture of fixtures) {
-      const round = fixture.fixtures[0].matchday
+      const round = fixture.matchday
       if (!grouped[round]) {
         grouped[round] = []
       }
@@ -48,9 +48,9 @@ export function TeamFixturesList({
             <div className="from-primary/12 border-border bg-gradient-to-r to-transparent border-b px-4 py-3">
               <h2 className="font-heading text-foreground text-lg font-semibold">
                 Round {round}
-                {roundFixtures[0]?.fixtures[0]?.series ? (
+                {roundFixtures[0]?.series ? (
                   <span className="text-muted-foreground ml-2 text-sm font-normal">
-                    ({roundFixtures[0]?.fixtures[0]?.series})
+                    ({roundFixtures[0].series})
                   </span>
                 ) : null}
               </h2>
@@ -58,13 +58,13 @@ export function TeamFixturesList({
 
             <ul className="divide-border divide-y">
               {roundFixtures.map((fixture) => {
-                const home = parseScore(fixture.fixtures[0].home_score)
-                const away = parseScore(fixture.fixtures[0].away_score)
+                const home = parseScore(fixture.home_score)
+                const away = parseScore(fixture.away_score)
                 const homeLeading = home > away
                 const awayLeading = away > home
 
                 return (
-                  <li key={fixture.fixtures[0].id}>
+                  <li key={fixture.id}>
                     <button
                       type="button"
                       onClick={() => {
@@ -72,7 +72,7 @@ export function TeamFixturesList({
                           to: '/$leagueSlug/matches/$matchId',
                           params: {
                             leagueSlug,
-                            matchId: String(fixture.fixtures[0].id),
+                            matchId: String(fixture.id),
                           },
                           search: {
                             season: String(seasonId),
@@ -84,34 +84,32 @@ export function TeamFixturesList({
                       {/* Home */}
                       <div className="flex min-w-0 flex-1 items-center justify-end gap-2 sm:gap-3">
                         <span className="text-foreground truncate text-sm font-medium sm:text-base">
-                          {fixture.fixtures[0].team1_name}
+                          {fixture.team1_name}
                         </span>
-                        {fixture.fixtures[0].team1_logo ? (
+                        {fixture.team1_logo ? (
                           <img
                             className="border-border size-9 shrink-0 rounded-full border object-cover sm:size-10"
-                            src={fixture.fixtures[0].team1_logo}
-                            alt={`${fixture.fixtures[0].team1_name} logo`}
+                            src={fixture.team1_logo}
+                            alt={`${fixture.team1_name} logo`}
                           />
                         ) : (
                           <div className="bg-muted text-muted-foreground border-border grid size-9 place-items-center rounded-full border text-[10px] font-semibold">
-                            {fixture.fixtures[0].team1_name
-                              .slice(0, 2)
-                              .toUpperCase()}
+                            {fixture.team1_name.slice(0, 2).toUpperCase()}
                           </div>
                         )}
                       </div>
 
                       {/* Score / time */}
                       <div className="flex w-[5.5rem] shrink-0 flex-col items-center justify-center sm:w-28">
-                        {fixture.fixtures[0].game_status === 'notstarted' ? (
-                          fixture.fixtures[0].matchtime === '' ? (
+                        {fixture.game_status === 'notstarted' ? (
+                          fixture.matchtime === '' ? (
                             <Loader2Icon
                               className="text-muted-foreground size-5 animate-spin"
                               aria-label="Kick-off pending"
                             />
                           ) : (
                             <span className="text-muted-foreground text-xs font-medium tabular-nums sm:text-sm">
-                              {fixture.fixtures[0].matchtime}
+                              {fixture.matchtime}
                             </span>
                           )
                         ) : (
@@ -124,7 +122,7 @@ export function TeamFixturesList({
                                     : 'text-muted-foreground'
                                 }
                               >
-                                {fixture.fixtures[0].home_score}
+                                {fixture.home_score}
                               </span>
                               <span className="text-muted-foreground font-normal sm:text-xl">
                                 –
@@ -136,18 +134,17 @@ export function TeamFixturesList({
                                     : 'text-muted-foreground'
                                 }
                               >
-                                {fixture.fixtures[0].away_score}
+                                {fixture.away_score}
                               </span>
                             </div>
                             <span className="text-muted-foreground mt-0.5 text-[0.65rem] font-medium uppercase tracking-wide sm:text-xs">
-                              {fixture.fixtures[0].game_status === 'ended' ||
-                              fixture.fixtures[0].game_status === 'FT'
+                              {fixture.game_status === 'ended' ||
+                              fixture.game_status === 'FT'
                                 ? 'FT'
-                                : fixture.fixtures[0].minute === 45 &&
-                                    fixture.fixtures[0].game_moment ===
-                                      'secondhalf'
+                                : fixture.minute === 45 &&
+                                    fixture.game_moment === 'secondhalf'
                                   ? 'HT'
-                                  : `${fixture.fixtures[0].minute}'`}
+                                  : `${fixture.minute}'`}
                             </span>
                           </>
                         )}
@@ -155,22 +152,20 @@ export function TeamFixturesList({
 
                       {/* Away */}
                       <div className="flex min-w-0 flex-1 items-center justify-start gap-2 sm:gap-3">
-                        {fixture.fixtures[0].team2_logo ? (
+                        {fixture.team2_logo ? (
                           <img
                             className="border-border size-9 shrink-0 rounded-full border object-cover sm:size-10"
-                            src={fixture.fixtures[0].team2_logo}
-                            alt={`${fixture.fixtures[0].team2_name} logo`}
+                            src={fixture.team2_logo}
+                            alt={`${fixture.team2_name} logo`}
                           />
                         ) : (
                           <div className="bg-muted text-muted-foreground border-border grid size-9 place-items-center rounded-full border text-[10px] font-semibold">
-                            {fixture.fixtures[0].team2_name
-                              .slice(0, 2)
-                              .toUpperCase()}
+                            {fixture.team2_name.slice(0, 2).toUpperCase()}
                           </div>
                         )}
 
                         <span className="text-foreground truncate text-sm font-medium sm:text-base">
-                          {fixture.fixtures[0].team2_name}
+                          {fixture.team2_name}
                         </span>
                       </div>
                     </button>
