@@ -8,12 +8,11 @@ import {
 } from '@tanstack/react-router'
 
 import { getFixturesFn } from '#/data/fixtures'
-import { FixturesList } from '#/components/fixtures/fixture-list'
-import { leagueIdFromSlug } from '#/lib/league-slug'
-import { getSeasonsFn, pickDefaultSeasonId } from '#/data/leagues'
 import { SeasonSelect } from '#/components/shared/season-select'
+import { FixturesList } from '#/components/fixtures/fixture-list'
+import { getSeasonsFn, pickDefaultSeasonId } from '#/data/leagues'
 
-export const Route = createFileRoute('/_leagues/$leagueSlug/matches/')({
+export const Route = createFileRoute('/')({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
       typeof search.season === 'string' && search.season.trim() !== ''
@@ -23,19 +22,14 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/matches/')({
   loaderDeps: ({ search }) => ({
     season: search.season,
   }),
-  loader: async ({ params, deps }) => {
-    const leagueId = leagueIdFromSlug(params.leagueSlug)
-
-    if (!leagueId) {
-      throw notFound()
-    }
-
+  loader: async ({ deps }) => {
+    const leagueId = 238
     const seasons = await getSeasonsFn({ data: { leagueId } })
     const defaultSeasonId = pickDefaultSeasonId(seasons)
+
     if (!deps.season && defaultSeasonId) {
       throw redirect({
-        to: '/$leagueSlug/matches',
-        params: { leagueSlug: params.leagueSlug },
+        to: '/',
         search: { season: String(defaultSeasonId) },
         replace: true,
       })
@@ -46,19 +40,15 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/matches/')({
     const fixturesPromise = getFixturesFn({
       data: { leagueId, seasonId },
     })
-    return {
-      fixturesPromise,
-      leagueSlug: params.leagueSlug,
-      seasons,
-      seasonId,
-    }
+
+    return { fixturesPromise, seasons, seasonId }
   },
-  component: RouteComponent,
+  component: Home,
 })
 
-function RouteComponent() {
-  const { fixturesPromise, leagueSlug, seasons, seasonId } =
-    Route.useLoaderData()
+function Home() {
+  const { fixturesPromise, seasons, seasonId } = Route.useLoaderData()
+
   const navigate = useNavigate()
 
   return (
@@ -77,8 +67,7 @@ function RouteComponent() {
           seasons={seasons}
           onValueChange={(value) => {
             navigate({
-              to: '/$leagueSlug/matches',
-              params: { leagueSlug },
+              to: '/',
               search: { season: value },
             })
           }}
@@ -93,11 +82,7 @@ function RouteComponent() {
           </div>
         }
       >
-        <FixturesList
-          data={fixturesPromise}
-          leagueSlug={leagueSlug}
-          seasonId={seasonId}
-        />
+        <FixturesList data={fixturesPromise} seasonId={seasonId} />
       </Suspense>
     </section>
   )

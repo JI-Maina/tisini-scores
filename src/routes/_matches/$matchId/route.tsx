@@ -12,7 +12,7 @@ const tabs = [
   { label: 'H2H', to: '/$leagueSlug/matches/$matchId/h2h' as const },
 ]
 
-export const Route = createFileRoute('/_leagues/$leagueSlug/matches/$matchId')({
+export const Route = createFileRoute('/_matches/$matchId')({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
       typeof search.season === 'string' && search.season.trim() !== ''
@@ -23,12 +23,8 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/matches/$matchId')({
     season: search.season,
   }),
   loader: async ({ params, deps }) => {
-    const leagueId = leagueIdFromSlug(params.leagueSlug)
+    const leagueId = 238
     const matchId = Number(params.matchId)
-
-    if (!leagueId || !matchId) {
-      throw notFound()
-    }
 
     const seasons = await getSeasonsFn({ data: { leagueId } })
     const defaultSeasonId = pickDefaultSeasonId(seasons)
@@ -40,7 +36,6 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/matches/$matchId')({
     })
     return {
       details,
-      leagueSlug: params.leagueSlug,
       matchId: params.matchId,
       seasonId,
     }
@@ -49,7 +44,7 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/matches/$matchId')({
 })
 
 function RouteComponent() {
-  const { details, leagueSlug, matchId, seasonId } = Route.useLoaderData()
+  const { details, matchId, seasonId } = Route.useLoaderData()
 
   return (
     <div className="space-y-4 pb-6">
@@ -62,12 +57,12 @@ function RouteComponent() {
           <Link
             key={tab.to}
             to={tab.to}
-            params={{ leagueSlug, matchId }}
+            params={{ matchId }}
             search={{ season: String(seasonId) }}
             className="text-muted-foreground hover:text-foreground hover:bg-background/70 data-[status=active]:text-foreground data-[status=active]:bg-background border-border/70 border-r px-3 py-2.5 text-center text-[0.68rem] font-semibold uppercase tracking-[0.08em] transition-colors last:border-r-0"
             activeProps={{ className: 'text-foreground bg-background' }}
             activeOptions={{
-              exact: tab.to === '/$leagueSlug/matches/$matchId',
+              exact: tab.to === '/$matchId',
             }}
           >
             {tab.label}

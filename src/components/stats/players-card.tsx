@@ -7,12 +7,10 @@ import { ChevronRightIcon } from 'lucide-react'
 export function PlayerStatsCard({
   title,
   playersPromise,
-  leagueSlug,
   seasonId,
 }: {
   title: string
   playersPromise: Promise<TopPlayer[]>
-  leagueSlug: string
   seasonId: number
 }) {
   const players = use(playersPromise)
@@ -21,8 +19,7 @@ export function PlayerStatsCard({
     <article className="border-border bg-card/90 rounded-xl border shadow-sm">
       <header className="border-border/70 flex items-center justify-between border-b px-4 py-3">
         <Link
-          to="/$leagueSlug/stats"
-          params={{ leagueSlug }}
+          to="/stats"
           search={{ season: String(seasonId) }}
           className="inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
         >

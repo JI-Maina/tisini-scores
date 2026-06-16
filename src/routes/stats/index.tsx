@@ -1,7 +1,6 @@
 import { Suspense } from 'react'
 import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router'
 
-import { leagueIdFromSlug } from '#/lib/league-slug'
 import type { TopPlayer, TopTeam } from '#/lib/types'
 import { TeamStatsCard } from '#/components/stats/teams-card'
 import { getPlayerStatsFn, getTeamStatsFn } from '#/data/stats'
@@ -49,7 +48,7 @@ const statsConfigByLeagueId: Record<number, StatsLeagueConfig> = {
   },
 }
 
-export const Route = createFileRoute('/_leagues/$leagueSlug/stats/')({
+export const Route = createFileRoute('/stats/')({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
       typeof search.season === 'string' && search.season.trim() !== ''
@@ -59,11 +58,8 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/stats/')({
   loaderDeps: ({ search }) => ({
     season: search.season,
   }),
-  loader: async ({ params, deps }) => {
-    const leagueId = leagueIdFromSlug(params.leagueSlug)
-    if (!leagueId) {
-      throw notFound()
-    }
+  loader: async ({ deps }) => {
+    const leagueId = 238
 
     const seasons = await getSeasonsFn({ data: { leagueId } })
     const defaultSeasonId = pickDefaultSeasonId(seasons)
@@ -83,17 +79,29 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/stats/')({
     }).catch(() => [] as TopTeam[])
 
     const topScorersPromise = getPlayerStatsFn({
-      data: { leagueId, seasonId, eventId: leagueStatsConfig.player[0].eventId },
+      data: {
+        leagueId,
+        seasonId,
+        eventId: leagueStatsConfig.player[0].eventId,
+      },
     })
       .then((res) => res.items)
       .catch(() => [] as TopPlayer[])
     const topAssistsPromise = getPlayerStatsFn({
-      data: { leagueId, seasonId, eventId: leagueStatsConfig.player[1].eventId },
+      data: {
+        leagueId,
+        seasonId,
+        eventId: leagueStatsConfig.player[1].eventId,
+      },
     })
       .then((res) => res.items)
       .catch(() => [] as TopPlayer[])
     const topPassesPromise = getPlayerStatsFn({
-      data: { leagueId, seasonId, eventId: leagueStatsConfig.player[2].eventId },
+      data: {
+        leagueId,
+        seasonId,
+        eventId: leagueStatsConfig.player[2].eventId,
+      },
     })
       .then((res) => res.items)
       .catch(() => [] as TopPlayer[])
@@ -107,7 +115,6 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/stats/')({
       topPassesPromise,
       seasons,
       seasonId,
-      leagueSlug: params.leagueSlug,
       leagueStatsConfig,
     }
   },
@@ -124,7 +131,6 @@ function RouteComponent() {
     topPassesPromise,
     seasons,
     seasonId,
-    leagueSlug,
     leagueStatsConfig,
   } = Route.useLoaderData()
   const navigate = useNavigate()
@@ -145,8 +151,7 @@ function RouteComponent() {
           seasons={seasons}
           onValueChange={(value) => {
             navigate({
-              to: '/$leagueSlug/stats',
-              params: { leagueSlug },
+              to: '/stats',
               search: { season: value },
             })
           }}
@@ -162,23 +167,28 @@ function RouteComponent() {
             <TeamStatsCard
               title={leagueStatsConfig.team[0].title}
               teamsPromise={goalsStatsPromise}
-              leagueSlug={leagueSlug}
               seasonId={seasonId}
             />
           </Suspense>
-          <Suspense fallback={<StatsCardFallback title={leagueStatsConfig.team[1].title} />}>
+          <Suspense
+            fallback={
+              <StatsCardFallback title={leagueStatsConfig.team[1].title} />
+            }
+          >
             <TeamStatsCard
               title={leagueStatsConfig.team[1].title}
               teamsPromise={interceptionsStatsPromise}
-              leagueSlug={leagueSlug}
               seasonId={seasonId}
             />
           </Suspense>
-          <Suspense fallback={<StatsCardFallback title={leagueStatsConfig.team[2].title} />}>
+          <Suspense
+            fallback={
+              <StatsCardFallback title={leagueStatsConfig.team[2].title} />
+            }
+          >
             <TeamStatsCard
               title={leagueStatsConfig.team[2].title}
               teamsPromise={tacklesStatsPromise}
-              leagueSlug={leagueSlug}
               seasonId={seasonId}
             />
           </Suspense>
@@ -190,27 +200,36 @@ function RouteComponent() {
           Player Stats
         </h2>
         <div className="grid gap-3 lg:grid-cols-3">
-          <Suspense fallback={<StatsCardFallback title={leagueStatsConfig.player[0].title} />}>
+          <Suspense
+            fallback={
+              <StatsCardFallback title={leagueStatsConfig.player[0].title} />
+            }
+          >
             <PlayerStatsCard
               title={leagueStatsConfig.player[0].title}
               playersPromise={topScorersPromise}
-              leagueSlug={leagueSlug}
               seasonId={seasonId}
             />
           </Suspense>
-          <Suspense fallback={<StatsCardFallback title={leagueStatsConfig.player[1].title} />}>
+          <Suspense
+            fallback={
+              <StatsCardFallback title={leagueStatsConfig.player[1].title} />
+            }
+          >
             <PlayerStatsCard
               title={leagueStatsConfig.player[1].title}
               playersPromise={topAssistsPromise}
-              leagueSlug={leagueSlug}
               seasonId={seasonId}
             />
           </Suspense>
-          <Suspense fallback={<StatsCardFallback title={leagueStatsConfig.player[2].title} />}>
+          <Suspense
+            fallback={
+              <StatsCardFallback title={leagueStatsConfig.player[2].title} />
+            }
+          >
             <PlayerStatsCard
               title={leagueStatsConfig.player[2].title}
               playersPromise={topPassesPromise}
-              leagueSlug={leagueSlug}
               seasonId={seasonId}
             />
           </Suspense>

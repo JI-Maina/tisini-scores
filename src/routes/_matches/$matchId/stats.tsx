@@ -5,7 +5,7 @@ import type { EventStat } from '#/lib/types'
 import { cn } from '#/lib/utils'
 
 export const Route = createFileRoute(
-  '/_leagues/$leagueSlug/matches/$matchId/stats',
+  '/_matches/$matchId/stats',
 )({
   component: RouteComponent,
 })

@@ -1,7 +1,6 @@
 import { SeasonSelect } from '#/components/shared/season-select'
 import { getSeasonsFn, pickDefaultSeasonId } from '#/data/leagues'
 import { getTeamsFn } from '#/data/teams'
-import { leagueIdFromSlug } from '#/lib/league-slug'
 import type { Team } from '#/lib/types'
 import { slugify } from '#/lib/utils'
 import {
@@ -14,7 +13,7 @@ import {
 import { ChevronRightIcon, Loader2Icon } from 'lucide-react'
 import { Suspense, use } from 'react'
 
-export const Route = createFileRoute('/_leagues/$leagueSlug/teams/')({
+export const Route = createFileRoute('/teams/')({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
       typeof search.season === 'string' && search.season.trim() !== ''
@@ -24,18 +23,14 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/teams/')({
   loaderDeps: ({ search }) => ({
     season: search.season,
   }),
-  loader: async ({ params, deps }) => {
-    const leagueId = leagueIdFromSlug(params.leagueSlug)
-    if (!leagueId) {
-      throw notFound()
-    }
+  loader: async ({ deps }) => {
+    const leagueId = 238
 
     const seasons = await getSeasonsFn({ data: { leagueId } })
     const defaultSeasonId = pickDefaultSeasonId(seasons)
     if (!deps.season && defaultSeasonId) {
       throw redirect({
-        to: '/$leagueSlug/matches',
-        params: { leagueSlug: params.leagueSlug },
+        to: '/',
         search: { season: String(defaultSeasonId) },
         replace: true,
       })
@@ -44,13 +39,13 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/teams/')({
     if (!seasonId) throw notFound()
 
     const teamsPromise = getTeamsFn({ data: { leagueId, seasonId } })
-    return { teamsPromise, seasons, seasonId, leagueSlug: params.leagueSlug }
+    return { teamsPromise, seasons, seasonId }
   },
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const { teamsPromise, seasons, seasonId, leagueSlug } = Route.useLoaderData()
+  const { teamsPromise, seasons, seasonId } = Route.useLoaderData()
 
   const navigate = useNavigate()
 
@@ -71,8 +66,7 @@ function RouteComponent() {
           seasons={seasons}
           onValueChange={(value) => {
             navigate({
-              to: '/$leagueSlug/teams',
-              params: { leagueSlug },
+              to: '/teams',
               search: { season: value },
             })
           }}
@@ -87,7 +81,7 @@ function RouteComponent() {
           </div>
         }
       >
-        <TeamsGrid data={teamsPromise} leagueSlug={leagueSlug} />
+        <TeamsGrid data={teamsPromise} seasonId={seasonId} />
       </Suspense>
     </section>
   )
@@ -95,10 +89,10 @@ function RouteComponent() {
 
 function TeamsGrid({
   data,
-  leagueSlug,
+  seasonId,
 }: {
   data: Promise<Team[]>
-  leagueSlug: string
+  seasonId: number
 }) {
   const teams = use(data)
 
@@ -111,7 +105,7 @@ function TeamsGrid({
       ) : (
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {teams.map((team) => (
-            <TeamCard key={team.team_id} team={team} leagueSlug={leagueSlug} />
+            <TeamCard key={team.team_id} team={team} seasonId={seasonId} />
           ))}
         </div>
       )}
@@ -119,11 +113,12 @@ function TeamsGrid({
   )
 }
 
-function TeamCard({ team, leagueSlug }: { team: Team; leagueSlug: string }) {
+function TeamCard({ team, seasonId }: { team: Team; seasonId: number }) {
   return (
     <Link
-      to="/$leagueSlug/teams/$teamId"
-      params={{ leagueSlug, teamId: slugify(team.team_name, team.team_id) }}
+      to="/teams/$teamId"
+      params={{ teamId: slugify(team.team_name, team.team_id) }}
+      search={{ season: String(seasonId) }}
       className="border-border bg-card/90 hover:bg-card group rounded-xl border p-3.5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-ring/50 focus-visible:outline-none focus-visible:ring-2"
     >
       <div className="flex min-h-14 items-center justify-between gap-3">

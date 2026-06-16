@@ -10,11 +10,10 @@ import {
 import { cn } from '#/lib/utils'
 import { getStandingsFn } from '#/data/standings'
 import type { LeagueStandings } from '#/lib/types'
-import { leagueIdFromSlug } from '#/lib/league-slug'
 import { SeasonSelect } from '#/components/shared/season-select'
 import { getSeasonsFn, pickDefaultSeasonId } from '#/data/leagues'
 
-export const Route = createFileRoute('/_leagues/$leagueSlug/standings/')({
+export const Route = createFileRoute('/standings/')({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
       typeof search.season === 'string' && search.season.trim() !== ''
@@ -24,19 +23,14 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/standings/')({
   loaderDeps: ({ search }) => ({
     season: search.season,
   }),
-  loader: async ({ params, deps }) => {
-    const leagueId = leagueIdFromSlug(params.leagueSlug)
-
-    if (!leagueId) {
-      throw notFound()
-    }
+  loader: async ({ deps }) => {
+    const leagueId = 238
 
     const seasons = await getSeasonsFn({ data: { leagueId } })
     const defaultSeasonId = pickDefaultSeasonId(seasons)
     if (!deps.season && defaultSeasonId) {
       throw redirect({
-        to: '/$leagueSlug/matches',
-        params: { leagueSlug: params.leagueSlug },
+        to: '/',
         search: { season: String(defaultSeasonId) },
         replace: true,
       })
@@ -51,15 +45,13 @@ export const Route = createFileRoute('/_leagues/$leagueSlug/standings/')({
       standingsPromise,
       seasons,
       seasonId,
-      leagueSlug: params.leagueSlug,
     }
   },
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const { standingsPromise, seasons, seasonId, leagueSlug } =
-    Route.useLoaderData()
+  const { standingsPromise, seasons, seasonId } = Route.useLoaderData()
   const navigate = useNavigate()
 
   return (
@@ -80,8 +72,7 @@ function RouteComponent() {
           seasons={seasons}
           onValueChange={(value) => {
             navigate({
-              to: '/$leagueSlug/standings',
-              params: { leagueSlug },
+              to: '/standings',
               search: { season: value },
             })
           }}

@@ -1,9 +1,8 @@
 import { SearchIcon } from 'lucide-react'
-import { Link, useParams, useSearch } from '@tanstack/react-router'
+import { Link, useSearch } from '@tanstack/react-router'
 
 import { tisiniLogo } from '#/assets'
 import type { League } from '#/lib/types'
-import { leagueToSlug } from '#/lib/league-slug'
 
 const staticNavItems = [
   {
@@ -13,10 +12,8 @@ const staticNavItems = [
 ]
 
 export default function SiteHeader({ data }: { data: League[] }) {
-  const params = useParams({ strict: false })
   const search = useSearch({ strict: false })
-  const activeLeagueSlug =
-    params.leagueSlug ?? (data[0] ? leagueToSlug(data[0]) : null)
+
   const season =
     typeof search.season === 'string' && search.season.trim() !== ''
       ? search.season
@@ -42,58 +39,39 @@ export default function SiteHeader({ data }: { data: League[] }) {
                 </Link>
               </li>
             ))}
-            {activeLeagueSlug ? (
-              <li>
-                <Link
-                  to="/$leagueSlug/matches"
-                  params={{ leagueSlug: activeLeagueSlug }}
-                  search={{ season }}
-                  className="text-lg font-semibold"
-                  preload="intent"
-                >
-                  Matches
-                </Link>
-              </li>
-            ) : null}
-            {activeLeagueSlug ? (
-              <li>
-                <Link
-                  to="/$leagueSlug/stats"
-                  params={{ leagueSlug: activeLeagueSlug }}
-                  search={{ season }}
-                  className="text-lg font-semibold"
-                  preload="intent"
-                >
-                  Stats
-                </Link>
-              </li>
-            ) : null}
-            {activeLeagueSlug ? (
-              <li>
-                <Link
-                  to="/$leagueSlug/teams"
-                  params={{ leagueSlug: activeLeagueSlug }}
-                  search={{ season }}
-                  className="text-lg font-semibold"
-                  preload="intent"
-                >
-                  Teams
-                </Link>
-              </li>
-            ) : null}
-            {activeLeagueSlug ? (
-              <li>
-                <Link
-                  to="/$leagueSlug/standings"
-                  params={{ leagueSlug: activeLeagueSlug }}
-                  search={{ season }}
-                  className="text-lg font-semibold"
-                  preload="intent"
-                >
-                  Standings
-                </Link>
-              </li>
-            ) : null}
+
+            <li>
+              <Link
+                to="/stats"
+                search={{ season }}
+                className="text-lg font-semibold"
+                preload="intent"
+              >
+                Stats
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/teams"
+                search={{ season }}
+                className="text-lg font-semibold"
+                preload="intent"
+              >
+                Teams
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/standings"
+                search={{ season }}
+                className="text-lg font-semibold"
+                preload="intent"
+              >
+                Standings
+              </Link>
+            </li>
           </ul>
         </nav>
 

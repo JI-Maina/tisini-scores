@@ -105,6 +105,22 @@ export interface FixtureLineups {
   away: LineupPlayer[]
 }
 
+export interface RecentFixture {
+  fixture: FixtureH2H
+  logos: H2HLogo[]
+  lineup: LineupPlayer[]
+}
+
+export interface UpcomingFixture {
+  fixture: FixtureH2H
+  logos: H2HLogo[]
+}
+
+export interface TeamFixtures {
+  fixtures: Fixture[]
+  logos: H2HLogo[]
+}
+
 export interface FixtureH2H {
   id: number
   team1_name: string
@@ -158,9 +174,20 @@ export interface Team {
   team_name: string
   team_logo: string
   games_played: number
+}
+
+export interface TeamDetails {
+  team_id: number
+  team_name: string
+  team_logo: string
   year_founded: number | null
   website_url: string | null
   description: string
+  num_players: number
+  games_played: number
+  games_won: number
+  games_lost: number
+  games_drawn: number
 }
 
 export interface TopTeam {
@@ -194,4 +221,22 @@ export interface PaginatedResponse<T> {
   next: string | null
   previous: string | null
   items: T[]
+}
+
+export interface Player {
+  first_name: string
+  sir_name: string
+  other_name: string
+  dob: string
+  current_position: string
+  nationality: string
+  passportphoto: string
+}
+
+export interface TeamPlayer {
+  id: number
+  player_id: number
+  team_id: number
+  current_jersey_no: number
+  player: Player
 }

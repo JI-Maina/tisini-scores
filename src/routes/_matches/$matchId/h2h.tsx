@@ -8,7 +8,7 @@ import type { FixtureH2H, H2HLogo } from '#/lib/types'
 import { cn } from '#/lib/utils'
 
 export const Route = createFileRoute(
-  '/_leagues/$leagueSlug/matches/$matchId/h2h',
+  '/_matches/$matchId/h2h',
 )({
   validateSearch: (search: Record<string, unknown>) => ({
     season:

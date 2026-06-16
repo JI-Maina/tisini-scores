@@ -1,12 +1,13 @@
 import { createFileRoute, notFound } from '@tanstack/react-router'
 
+import { splitLineup } from '#/lib/utils'
 import type { LineupPlayer } from '#/lib/types'
 import { Route as MatchLayoutRoute } from './route'
 import { leagueIdFromSlug } from '#/lib/league-slug'
 import { getFixtureLineupsFn } from '#/data/fixtures'
 
 export const Route = createFileRoute(
-  '/_leagues/$leagueSlug/matches/$matchId/lineups',
+  '/_matches/$matchId/lineups',
 )({
   validateSearch: (search: Record<string, unknown>) => ({
     season:
@@ -111,20 +112,4 @@ function LineupSection({
       )}
     </div>
   )
-}
-
-function splitLineup(players: LineupPlayer[]) {
-  const starters: LineupPlayer[] = []
-  const substitutes: LineupPlayer[] = []
-
-  for (const player of players) {
-    const type = player.player_type.toLowerCase()
-    if (type.includes('sub')) {
-      substitutes.push(player)
-    } else {
-      starters.push(player)
-    }
-  }
-
-  return { starters, substitutes }
 }

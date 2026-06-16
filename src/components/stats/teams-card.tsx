@@ -7,12 +7,10 @@ import type { TopTeam } from '#/lib/types'
 export function TeamStatsCard({
   title,
   teamsPromise,
-  leagueSlug,
   seasonId,
 }: {
   title: string
   teamsPromise: Promise<TopTeam[]>
-  leagueSlug: string
   seasonId: number
 }) {
   const teams = use(teamsPromise)
@@ -21,8 +19,7 @@ export function TeamStatsCard({
     <article className="border-border bg-card/90 rounded-xl border shadow-sm">
       <header className="border-border/70 flex items-center justify-between border-b px-4 py-3">
         <Link
-          to="/$leagueSlug/stats"
-          params={{ leagueSlug }}
+          to="/stats"
           search={{ season: String(seasonId) }}
           className="inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
         >
