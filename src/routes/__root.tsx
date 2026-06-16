@@ -30,7 +30,7 @@ export const Route = createRootRoute({
   }),
   shellComponent: RootDocument,
   errorComponent: RootError,
-  beforeLoad: async () => {
+  loader: async () => {
     const leagues = await getLeaguesFn()
     return { leagues }
   },
@@ -46,7 +46,7 @@ function RootError({ error }: { error: Error }) {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const { leagues } = Route.useRouteContext()
+  const { leagues } = Route.useLoaderData()
 
   return (
     <html lang="en">
