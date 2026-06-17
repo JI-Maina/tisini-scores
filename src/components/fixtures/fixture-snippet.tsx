@@ -50,13 +50,13 @@ export function FixtureSnippet({
   const linkLabel = variant === 'recent' ? 'Match centre →' : 'Match preview →'
 
   return (
-    <article className="border-border bg-card/90 flex flex-col overflow-hidden rounded-xl border shadow-sm">
-      <div className="border-border/70 flex flex-wrap items-center justify-between gap-1.5 border-b bg-muted/15 px-3 py-2">
+    <article className="sp-panel flex flex-col">
+      <div className="sp-panel-header flex flex-wrap items-center justify-between gap-1.5 px-3 py-2">
         <span className="text-muted-foreground flex items-center gap-1 text-[0.65rem]">
           <CalendarIcon className="size-3 shrink-0" aria-hidden />
           {formatMatchDate(f.game_date)}
         </span>
-        <span className="text-muted-foreground rounded border border-border/80 bg-background/80 px-1.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-wide">
+        <span className="text-primary border-primary/20 rounded border bg-primary/10 px-1.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-wide">
           {f.game_status}
         </span>
       </div>
@@ -79,7 +79,7 @@ export function FixtureSnippet({
           <div className="font-heading text-foreground flex shrink-0 flex-row items-center justify-center gap-1 px-1 text-lg font-bold tabular-nums">
             <span
               className={
-                homeLeading ? 'text-foreground' : 'text-muted-foreground'
+                homeLeading ? 'text-primary font-semibold' : 'text-muted-foreground'
               }
             >
               {home}
@@ -87,7 +87,7 @@ export function FixtureSnippet({
             <span className="text-muted-foreground font-normal">—</span>
             <span
               className={
-                awayLeading ? 'text-foreground' : 'text-muted-foreground'
+                awayLeading ? 'text-primary font-semibold' : 'text-muted-foreground'
               }
             >
               {away}
@@ -110,7 +110,7 @@ export function FixtureSnippet({
         />
       </div>
 
-      <div className="border-border/70 mt-auto border-t bg-muted/10 px-3 py-2">
+      <div className="border-border/70 mt-auto border-t bg-accent/30 px-3 py-2">
         <Link
           to="/$leagueSlug/matches/$matchId"
           params={{ leagueSlug, matchId: String(f.id) }}
@@ -132,7 +132,7 @@ function FixtureSnippetEmpty({
   message: string
 }) {
   return (
-    <article className="border-border bg-muted/15 flex min-h-[9.5rem] flex-col justify-center gap-1 rounded-xl border border-dashed px-4 py-4">
+    <article className="border-sportpesa-azure/20 flex min-h-[9.5rem] flex-col justify-center gap-1 rounded-xl border border-dashed border-l-4 border-l-sportpesa-malibu/50 bg-accent/20 px-4 py-4">
       <p className="text-foreground text-[0.65rem] font-semibold uppercase tracking-wide">
         {title}
       </p>

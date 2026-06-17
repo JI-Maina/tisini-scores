@@ -22,11 +22,11 @@ export function PlayerCard({ player }: { player: TeamPlayer }) {
   return (
     <article
       className={cn(
-        'border-border bg-card/90 group relative flex flex-col overflow-hidden rounded-xl border shadow-sm',
-        'transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-md',
+        'sp-panel group relative flex flex-col overflow-hidden',
+        'transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-md hover:ring-2 hover:ring-primary/20',
       )}
     >
-      <div className="bg-muted/25 relative aspect-[3/4] w-full overflow-hidden">
+      <div className="from-sportpesa-malibu/10 to-accent/40 relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-b">
         {hasPhoto ? (
           <img
             src={pl.passportphoto}
@@ -34,15 +34,15 @@ export function PlayerCard({ player }: { player: TeamPlayer }) {
             className="size-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
           />
         ) : (
-          <div className="text-muted-foreground/35 flex size-full items-center justify-center bg-gradient-to-b from-muted/40 to-muted/70">
+          <div className="text-muted-foreground/35 from-sportpesa-malibu/15 to-accent/50 flex size-full items-center justify-center bg-gradient-to-b">
             <span className="font-heading text-5xl font-bold tabular-nums">
-              {jersey ?? '?'}
+              {jersey ?? '--'}
             </span>
           </div>
         )}
         <div className="absolute right-2 top-2">
-          <span className="border-border/80 bg-background/95 text-foreground inline-flex min-w-8 items-center justify-center rounded-md border px-2 py-0.5 text-xs font-bold tabular-nums shadow-sm backdrop-blur-sm">
-            {jersey != null ? jersey : '—'}
+          <span className="border-primary/20 bg-primary/10 text-primary inline-flex min-w-8 items-center justify-center rounded-md border px-2 py-0.5 text-xs font-bold tabular-nums shadow-sm backdrop-blur-sm">
+            {jersey != null ? jersey : '--'}
           </span>
         </div>
       </div>

@@ -22,7 +22,7 @@ export function SeasonSelect({
         Season
       </span>
       <Select value={value} onValueChange={onValueChange}>
-        <SelectTrigger className="border-border bg-card text-foreground w-48 rounded-md border px-3 py-2">
+        <SelectTrigger className="w-48">
           <SelectValue placeholder="Select season" />
         </SelectTrigger>
         <SelectContent>

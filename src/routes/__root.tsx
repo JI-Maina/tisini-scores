@@ -17,7 +17,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'SportPesa7s',
       },
     ],
     links: [
@@ -28,17 +28,7 @@ export const Route = createRootRoute({
     ],
   }),
   shellComponent: RootDocument,
-  errorComponent: RootError,
 })
-
-function RootError({ error }: { error: Error }) {
-  console.error(error)
-  return (
-    <div>
-      <h1>Error</h1>
-    </div>
-  )
-}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
@@ -47,10 +37,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <main className="container mx-auto">
+        <main className="container mx-auto flex flex-col">
           <SiteHeader />
 
-          <div className="min-h-screen">{children}</div>
+          <div className="flex-1 p-4 min-h-screen">{children}</div>
           <SiteFooter />
         </main>
 

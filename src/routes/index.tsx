@@ -1,10 +1,6 @@
 import { Suspense } from 'react'
 import { Loader2Icon } from 'lucide-react'
-import {
-  createFileRoute,
-  notFound,
-  useNavigate,
-} from '@tanstack/react-router'
+import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router'
 
 import { getFixturesFn } from '#/data/fixtures'
 import { SeasonSelect } from '#/components/shared/season-select'

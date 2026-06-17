@@ -16,8 +16,8 @@ const FixtureHeader = ({ details }: { details: Fixture }) => {
         : `${details.minute}'`
 
   return (
-    <div className="border-border bg-card/90 overflow-hidden rounded-xl border shadow-sm backdrop-blur-sm">
-      <div className="from-primary/12 border-border bg-gradient-to-r to-transparent border-b px-3 py-2 sm:px-4">
+    <div className="sp-panel">
+      <div className="sp-panel-header px-3 py-2 sm:px-4">
         <div className="grid grid-cols-3 items-center gap-2">
           <div className="justify-self-start rounded-md bg-background/80 px-2 py-1 text-xs font-semibold sm:text-sm">
             {details.matchday}
@@ -45,7 +45,7 @@ const FixtureHeader = ({ details }: { details: Fixture }) => {
           </div>
         </div>
 
-        <div className="border-border bg-background/75 min-w-[6rem] rounded-lg border px-3 py-2 text-center shadow-sm sm:min-w-[7.5rem] sm:px-4 sm:py-2.5">
+        <div className="border-sportpesa-azure/20 bg-primary/5 min-w-[6rem] rounded-lg border px-3 py-2 text-center shadow-sm sm:min-w-[7.5rem] sm:px-4 sm:py-2.5">
           {details.game_status === 'notstarted' ? (
             <div className="text-muted-foreground flex items-center justify-center gap-2 text-sm font-semibold">
               <Loader2Icon className="size-4 animate-spin" aria-hidden />
@@ -54,11 +54,11 @@ const FixtureHeader = ({ details }: { details: Fixture }) => {
           ) : (
             <>
               <div className="text-foreground flex items-baseline justify-center gap-1 font-bold tabular-nums sm:text-3xl">
-                <span className={homeWin ? 'text-foreground' : 'text-muted-foreground'}>
+                <span className={homeWin ? 'text-primary' : 'text-muted-foreground'}>
                   {details.home_score}
                 </span>
                 <span className="text-muted-foreground font-normal">&ndash;</span>
-                <span className={awayWin ? 'text-foreground' : 'text-muted-foreground'}>
+                <span className={awayWin ? 'text-primary' : 'text-muted-foreground'}>
                   {details.away_score}
                 </span>
               </div>

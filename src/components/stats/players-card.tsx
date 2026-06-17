@@ -16,12 +16,12 @@ export function PlayerStatsCard({
   const players = use(playersPromise)
 
   return (
-    <article className="border-border bg-card/90 rounded-xl border shadow-sm">
-      <header className="border-border/70 flex items-center justify-between border-b px-4 py-3">
+    <article className="sp-panel">
+      <header className="sp-panel-header flex items-center justify-between">
         <Link
           to="/stats"
           search={{ season: String(seasonId) }}
-          className="inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
+          className="inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:text-primary"
         >
           <span>{title}</span>
           <ChevronRightIcon className="size-3.5" aria-hidden />
@@ -31,7 +31,7 @@ export function PlayerStatsCard({
         {players.slice(0, 10).map((player, index) => (
           <li
             key={player.player_id}
-            className="hover:bg-muted/50 flex items-center gap-2.5 rounded-md px-2 py-2"
+            className="sp-interactive-row flex items-center gap-2.5 rounded-md px-2 py-2"
           >
             <span className="text-muted-foreground w-5 text-xs font-semibold tabular-nums">
               {index + 1}
@@ -53,7 +53,7 @@ export function PlayerStatsCard({
                 {player.team_name}
               </p>
             </div>
-            <span className="ml-auto text-sm font-semibold tabular-nums">
+            <span className="text-primary ml-auto text-sm font-semibold tabular-nums">
               {player.total}
             </span>
           </li>

@@ -3,11 +3,11 @@ import type { TeamDetails } from '#/lib/types'
 
 export function TeamHeader({ team }: { team: TeamDetails }) {
   return (
-    <header className="border-border bg-card/90 flex flex-col gap-4 rounded-xl border p-4 shadow-sm sm:flex-row sm:items-center sm:gap-5 sm:p-5">
+    <header className="sp-panel flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:gap-5 sm:p-5">
       <img
         src={team.team_logo}
         alt={`${team.team_name} crest`}
-        className="border-border size-16 shrink-0 rounded-xl border bg-background object-contain sm:size-20"
+        className="border-sportpesa-azure/20 size-16 shrink-0 rounded-xl border bg-background object-contain sm:size-20"
       />
       <div className="min-w-0 flex-1 space-y-2">
         <h1 className="font-heading text-foreground text-2xl font-bold tracking-tight sm:text-3xl">

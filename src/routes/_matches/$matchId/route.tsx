@@ -3,13 +3,20 @@ import { Link, Outlet, createFileRoute, notFound } from '@tanstack/react-router'
 import FixtureHeader from '#/components/fixtures/fixture-header'
 import { getFixtureDetailsFn } from '#/data/fixtures'
 import { getSeasonsFn, pickDefaultSeasonId } from '#/data/leagues'
+import { cn } from '#/lib/utils'
 
 const tabs = [
-  { label: 'Overview', to: '/$leagueSlug/matches/$matchId' as const },
-  { label: 'Lineups', to: '/$leagueSlug/matches/$matchId/lineups' as const },
-  { label: 'Stats', to: '/$leagueSlug/matches/$matchId/stats' as const },
-  { label: 'H2H', to: '/$leagueSlug/matches/$matchId/h2h' as const },
+  { label: 'Overview', to: '/$matchId' as const },
+  { label: 'Lineups', to: '/$matchId/lineups' as const },
+  { label: 'Stats', to: '/$matchId/stats' as const },
+  { label: 'H2H', to: '/$matchId/h2h' as const },
 ]
+
+const tabLinkClass =
+  'border-border/70 text-muted-foreground hover:bg-accent hover:text-primary border-r px-3 py-2.5 text-center text-[0.68rem] font-semibold uppercase tracking-[0.08em] transition-colors last:border-r-0'
+
+const tabLinkActiveClass =
+  'bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary'
 
 export const Route = createFileRoute('/_matches/$matchId')({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -51,15 +58,15 @@ function RouteComponent() {
         <FixtureHeader details={details.fixture} />
       </section>
 
-      <nav className="bg-card/80 border-border grid grid-cols-4 overflow-hidden rounded-lg border shadow-sm backdrop-blur-sm">
+      <nav className="border-sportpesa-azure/20 bg-card/90 grid grid-cols-4 overflow-hidden rounded-xl border shadow-sm backdrop-blur-sm">
         {tabs.map((tab) => (
           <Link
             key={tab.to}
             to={tab.to}
             params={{ matchId }}
             search={{ season: String(seasonId) }}
-            className="text-muted-foreground hover:text-foreground hover:bg-background/70 data-[status=active]:text-foreground data-[status=active]:bg-background border-border/70 border-r px-3 py-2.5 text-center text-[0.68rem] font-semibold uppercase tracking-[0.08em] transition-colors last:border-r-0"
-            activeProps={{ className: 'text-foreground bg-background' }}
+            className={tabLinkClass}
+            activeProps={{ className: cn(tabLinkClass, tabLinkActiveClass) }}
             activeOptions={{
               exact: tab.to === '/$matchId',
             }}
@@ -69,7 +76,7 @@ function RouteComponent() {
         ))}
       </nav>
 
-      <section className="bg-card/60 border-border min-h-40 rounded-lg border p-3 shadow-sm backdrop-blur-sm sm:p-4">
+      <section className="border-sportpesa-azure/20 bg-card/60 min-h-40 rounded-xl border p-3 shadow-sm backdrop-blur-sm sm:p-4">
         <Outlet />
       </section>
     </div>

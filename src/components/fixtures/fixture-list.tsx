@@ -39,11 +39,8 @@ export function FixturesList({
       {Object.keys(groupedFixtures).map((round) => {
         const roundFixtures = groupedFixtures[round]
         return (
-          <section
-            key={round}
-            className="border-border bg-card/90 overflow-hidden rounded-xl border shadow-sm backdrop-blur-sm"
-          >
-            <div className="from-primary/12 border-border bg-linear-to-r to-transparent border-b px-4 py-3">
+          <section key={round} className="sp-panel">
+            <div className="sp-panel-header">
               <h2 className="font-heading text-foreground text-lg font-semibold">
                 Round {round}
                 {roundFixtures[0]?.series ? (
@@ -76,7 +73,7 @@ export function FixturesList({
                           },
                         })
                       }}
-                      className="hover:bg-muted/50 cursor-pointer flex w-full items-center gap-2 px-3 py-3 text-left transition-colors sm:gap-4 sm:px-4"
+                      className="sp-interactive-row cursor-pointer flex w-full items-center gap-2 px-3 py-3 text-left sm:gap-4 sm:px-4"
                     >
                       {/* Home */}
                       <div className="flex min-w-0 flex-1 items-center justify-end gap-2 sm:gap-3">
@@ -115,7 +112,7 @@ export function FixturesList({
                               <span
                                 className={
                                   homeLeading
-                                    ? 'text-foreground'
+                                    ? 'text-primary font-semibold'
                                     : 'text-muted-foreground'
                                 }
                               >
@@ -127,7 +124,7 @@ export function FixturesList({
                               <span
                                 className={
                                   awayLeading
-                                    ? 'text-foreground'
+                                    ? 'text-primary font-semibold'
                                     : 'text-muted-foreground'
                                 }
                               >
